@@ -1,2 +1,10 @@
-# sentiment-performance-connection
-MADS '26 capstone project repository
+# The Sentiment Performance Connection
+MADS '26 capstone Project Repository
+
+## Virtual Environment
+The virtual environment used for all the code and processing in this repository can be found in the `env.yml` file. A running list of all the packages included in the environment is:
+
+* pandas
+* matplotlib
+* awswrangler
+* ipykernel
