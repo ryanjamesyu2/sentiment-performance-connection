@@ -8,3 +8,6 @@ The virtual environment used for all the code and processing in this repository 
 * matplotlib
 * awswrangler
 * ipykernel
+* transformers
+* scikit-learn
+* torch
