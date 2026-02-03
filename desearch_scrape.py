@@ -25,6 +25,8 @@ players = {
     "Zack Baun": '("Zack Baun" OR "Baun")'
 }
 
+# TODO: Include emojis in search queries using inbuilt desearch functionality
+
 # schedule for 2025-26 season
 # TODO: Add all 17 regular season games and results
 # TODO: Modify to make this more modular and reusable for all teams
