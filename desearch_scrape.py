@@ -207,8 +207,15 @@ def build_dataset():
     df = pd.DataFrame(all_records)
 
     if not df.empty:
-        # Create engagement score - look into tweaking formula
-        df['engagement_score'] = df['likes'] + (df['retweets'] * 2) + (df['replies'] * 1.5)
+        # Create engagement score
+        df['engagement_score'] = (
+            np.log2(df['likes'] + 1) + 
+            (2 * np.log2(df['retweets'] + 1)) + 
+            (0.5 * np.log2(df['replies'] + 1))
+        )
+
+        # Round to 2 decimal places for cleaner display
+        df['engagement_score'] = df['engagement_score'].round(2)
         df = df.sort_values(by=['player', 'created_at'])
 
     return df

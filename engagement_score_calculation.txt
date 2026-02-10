@@ -1,0 +1,8 @@
+Engagement score:
+
+Weighted by Engagement Quality
+
+The multipliers reflect how much effort each action requires:
+    Retweets (2x weight): Highest effort. someone is vouching for the content to their entire audience
+    Likes (1x weight): Medium effort. shows approval but less commitment
+    Replies (0.5x weight): Can be positive or negative, and sometimes just spam (especially nowadays with lots of bot replies), so weighted lowest
