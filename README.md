@@ -6,8 +6,11 @@ The virtual environment used for all the code and processing in this repository 
 
 * pandas
 * matplotlib
+* seaborn
 * awswrangler
 * ipykernel
 * transformers
 * scikit-learn
 * torch
+* desearch-py
+* python-dotenv
