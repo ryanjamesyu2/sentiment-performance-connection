@@ -14,3 +14,4 @@ The virtual environment used for all the code and processing in this repository 
 * torch
 * desearch-py
 * python-dotenv
+* pysentiment2
