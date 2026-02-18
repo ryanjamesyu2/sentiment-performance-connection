@@ -19,7 +19,11 @@ from sentiment_prediction import predict_google
 
 # Extract file name from command line arguments and determine data source
 file_name = argv[1]
+file_name = file_name.split("/")[-1]    # get just file name, not path
 data_source = file_name.split("_")[0].lower()
+
+# data_source = "twitter"
+# file_name = "twitter_combined_season_results.csv"
 
 # Load the appropriate model path and function based on the data source
 if data_source == "google":
