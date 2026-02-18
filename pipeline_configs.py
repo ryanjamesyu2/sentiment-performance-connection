@@ -1,4 +1,4 @@
-TWITTER_MODEL = "cardiffnlp/twitter-xlm-roberta-base-sentiment"
+TWITTER_MODEL = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 TWITTER_FUNCTION = "sentiment-analysis"
 REDDIT_MODEL = "j-hartmann/sentiment-roberta-large-english-3-classes"
 REDDIT_FUNCTION = "text-classification"

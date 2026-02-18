@@ -39,9 +39,9 @@ def calc_sentiment_score(scores, config):
     sent_score = 0
     for i in range(scores.shape[0]):
         label = config.id2label[ranking[i]]
-        if label == "Positive":
+        if label == "positive":
             val = 1
-        elif label == "Neutral":
+        elif label == "neutral":
             val = 0
         else:
             val = -1
@@ -69,8 +69,13 @@ def predict_twitter(file_name, out_file_name="twitter_sentiment_scores.csv"):
     None
     """
     # Define necessary variables and read data
-    df = pd.read_csv(file_name)
+    DATA_FOLDER = "data/"
+    df = pd.read_csv(DATA_FOLDER + file_name)
     df = df[["player", "game_id", "text", "engagement_score"]]
+
+    # Temporary to test with first 100 entries - remove later
+    df = df.iloc[:100, :]
+
     model_path = pc.TWITTER_MODEL
 
     # Iterate through data frame and predict sentiment for each entry
@@ -79,7 +84,7 @@ def predict_twitter(file_name, out_file_name="twitter_sentiment_scores.csv"):
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     config = AutoConfig.from_pretrained(model_path)
     model = AutoModelForSequenceClassification.from_pretrained(model_path)
-    model.save_pretrained(model_path)
+    # model.save_pretrained(model_path)
 
     sentiment_scores = []
 
