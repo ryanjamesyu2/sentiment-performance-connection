@@ -51,28 +51,25 @@ def calc_sentiment_score(scores, config):
     return sent_score
 
 
-def predict_twitter(file_name, out_file_name="twitter_sentiment_scores.csv"):
+def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
     """
     A function to predict the sentiment of Twitter text data using a
     pre-trained HuggingFace model
 
     Parameters:
     -----------
-    file_name: str
-        The name of the .csv file containing the preprocessed Twitter data
+    df: pandas DataFrame
+        The preprocessed Twitter data
     out_file_name: str
         The name of the .csv file to save the results to (default is
         "twitter_sentiment_scores.csv")
 
     Returns:
     --------
-    None
+    df: pandas DataFrame
+        The input data frame with an additional column containing the predicted
+        sentiment scores for each text entry
     """
-    # Define necessary variables and read data
-    DATA_FOLDER = "data/"
-    df = pd.read_csv(DATA_FOLDER + file_name)
-    df = df[["player", "game_id", "text", "engagement_score"]]
-
     # Temporary to test with first 100 entries - remove later
     df = df.iloc[:100, :]
 
@@ -84,7 +81,6 @@ def predict_twitter(file_name, out_file_name="twitter_sentiment_scores.csv"):
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     config = AutoConfig.from_pretrained(model_path)
     model = AutoModelForSequenceClassification.from_pretrained(model_path)
-    # model.save_pretrained(model_path)
 
     sentiment_scores = []
 
@@ -104,14 +100,100 @@ def predict_twitter(file_name, out_file_name="twitter_sentiment_scores.csv"):
     df["sentiment_scores"] = sentiment_scores
     df.to_csv(out_file_name, index=False)
 
+    return df
 
-def predict_reddit(file_name):
+
+def predict_reddit(df):
     # add code to predict sentiment for Reddit data using the appropriate
     # model and function
     pass
 
 
-def predict_google(file_name):
+def predict_google(df):
     # add code to predict sentiment for Google data using the appropriate
     # model and function
     pass
+
+
+def aggregate_local_index(in_df, weights, source):
+    """
+    A function to calculate a weighted average of sentiment scores for a given
+    data source. They are aggregated to the player/team and week combination
+    level.
+
+    Parameters:
+    -----------
+    in_df: pandas DataFrame
+        A DataFrame containing sentiment scores for a given player/team and
+        week combination
+    weights: list of floats
+        A list of weights corresponding to the sentiment scores, generated
+        from a metadata column such as engagement score
+    source: str
+        The source of the data, either "twitter", "reddit", or "google"
+
+    Returns:
+    --------
+    out_df: DataFrame
+        A DataFrame containing the weighted average sentiment score for the
+        given
+        player/team and week combination
+    """
+
+    if source == "twitter":
+        # Define variables we need
+        out_df = pd.DataFrame(columns=["player", "game_id", "local_index"])
+        unique_levels = in_df[["player", "game_id"]].drop_duplicates()
+
+        # Iterate through each possible player/team
+        for _, row in unique_levels.iterrows():
+            # Get indices for the given player/team and week combination
+            player = row["player"]
+            game_id = row["game_id"]
+            inds = (in_df["player"] == player) & (in_df["game_id"] == game_id)
+
+            # Get the correct rows in df and weights
+            subset_df = in_df[inds]
+            scores = subset_df["sentiment_scores"].tolist()
+            w = weights[inds].tolist()
+
+            # Calculate weighted average and add to output df
+            local_index = np.average(scores, weights=w)
+            out_df.loc[len(out_df), :] = [player, game_id, local_index]
+    elif source == "reddit":
+        # add code for Reddit data
+        pass
+    else:
+        # add code for Google data
+        pass
+
+    return out_df
+
+
+def scale_local_index(local_index):
+    """
+    A function to scale the local index values to be between 0 and 100
+    via min-max scaling.
+
+    Parameters:
+    -----------
+    local_index: list of floats
+        A list of local index values to be scaled
+
+    Returns:
+    --------
+    scaled_index: list of floats
+        A list of scaled local index values, between 0 and 100
+    """
+    max_val = max(local_index)
+    min_val = min(local_index)
+
+    scaled_index = []
+    for i in local_index:
+        if max_val == min_val:
+            scaled_index.append(0)
+        else:
+            scaled_val = (i - min_val) / (max_val - min_val) * 100
+            scaled_index.append(scaled_val)
+
+    return scaled_index
