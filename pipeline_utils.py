@@ -71,7 +71,7 @@ def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
         sentiment scores for each text entry
     """
     # Temporary to test with first 100 entries - remove later
-    df = df.iloc[:100, :]
+    # df = df.iloc[:100, :]
 
     model_path = pc.TWITTER_MODEL
 
@@ -87,7 +87,13 @@ def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
     # Iterate through each text
     for t in df["text"]:
         # Generate output from model
-        encoded_input = tokenizer(t, return_tensors='pt')
+        encoded_input = tokenizer(
+            t,
+            padding='max_length',
+            truncation=True,
+            max_length=512,
+            return_tensors='pt'
+        )
         output = model(**encoded_input)
         scores = output[0][0].detach().numpy()
         scores = softmax(scores)
