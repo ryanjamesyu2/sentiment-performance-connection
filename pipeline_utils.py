@@ -176,30 +176,41 @@ def aggregate_local_index(in_df, weights, source):
     return out_df
 
 
-def scale_local_index(local_index):
+def scale_local_index(df):
     """
     A function to scale the local index values to be between 0 and 100
-    via min-max scaling.
+    via min-max scaling on a week-by-week basis.
 
     Parameters:
     -----------
-    local_index: list of floats
-        A list of local index values to be scaled
+    df: DataFrame
+        A DataFrame containing the local index values to be scaled
 
     Returns:
     --------
-    scaled_index: list of floats
-        A list of scaled local index values, between 0 and 100
+    out_df: DataFrame
+        A DataFrame containing scaled local index values, between 0 and 100
     """
-    max_val = max(local_index)
-    min_val = min(local_index)
+    # Create output df
+    out_df = pd.DataFrame(columns=df.columns)
 
-    scaled_index = []
-    for i in local_index:
-        if max_val == min_val:
-            scaled_index.append(0)
-        else:
-            scaled_val = (i - min_val) / (max_val - min_val) * 100
-            scaled_index.append(scaled_val)
+    # Iterate through each week
+    for week in df['game_id']:
+        # Get index entries for that week
+        week_inds = (df['game_id'] == week)
+        week_df = df[week_inds]
+        local_index = week_df['local_index']
 
-    return scaled_index
+        # Determine minimum and maximum observed sentiment in given week
+        max_val = max(local_index)
+        min_val = min(local_index)
+
+        # Scale local index for that week
+        num = (week_df['local_index'] - min_val)
+        den = (max_val - min_val)
+        week_df['local_index'] = num / den * 100
+
+        # Concatenate weekly data frame to previous weeks
+        out_df = pd.concat([out_df, week_df], ignore_index=True)
+
+    return out_df

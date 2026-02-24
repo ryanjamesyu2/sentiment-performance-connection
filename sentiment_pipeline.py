@@ -43,10 +43,10 @@ elif data_source == "twitter":
     log_eng_scores = df['engagement_score'].apply(lambda x: np.log(x + 1))
     twitter_local = aggregate_local_index(df, log_eng_scores, "twitter")
 
-    # Rescale local index to be between 0 and 100
-    scaled_ind = scale_local_index(twitter_local['local_index'])
-    twitter_local['local_index'] = scaled_ind
+    # Rescale local index to be between 0 and 100 on a weekly basis
+    twitter_local = scale_local_index(twitter_local)
 
+    # Save to CSV file
     out_path = "sentiment_indices/twitter_local_index.csv"
     twitter_local.to_csv(out_path, index=False)
 else:
