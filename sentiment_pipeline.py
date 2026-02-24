@@ -13,25 +13,42 @@ results are then saved to a new .csv file.
 
 # Import necessary libraries
 from sys import argv
-from sentiment_prediction import predict_twitter
-from sentiment_prediction import predict_reddit
-from sentiment_prediction import predict_google
+from pipeline_utils import predict_twitter
+from pipeline_utils import predict_reddit
+from pipeline_utils import predict_google
+from pipeline_utils import aggregate_local_index
+from pipeline_utils import scale_local_index
+import pandas as pd
+import numpy as np
 
 # Extract file name from command line arguments and determine data source
-file_name = argv[1]
-file_name = file_name.split("/")[-1]    # get just file name, not path
+file_path = argv[1]
+file_name = file_path.split("/")[-1]    # get just file name, not path
 data_source = file_name.split("_")[0].lower()
 
-# data_source = "twitter"
-# file_name = "twitter_combined_season_results.csv"
+# Read data into data frame
+df = pd.read_csv(file_path)
 
 # Load the appropriate model path and function based on the data source
+# Also generate weights based on a metadata column
 if data_source == "google":
     # add call to correct model and function for Google
-    predict_google(file_name)
+    predict_google(df)
 elif data_source == "twitter":
     # add call to correct model and function for Twitter
-    predict_twitter(file_name)
+    df = df[["player", "game_id", "text", "engagement_score"]]
+    df = predict_twitter(df)
+
+    # Aggregate sentiment scores to player/team and week level
+    log_eng_scores = df['engagement_score'].apply(lambda x: np.log(x + 1))
+    twitter_local = aggregate_local_index(df, log_eng_scores, "twitter")
+
+    # Rescale local index to be between 0 and 100
+    scaled_ind = scale_local_index(twitter_local['local_index'])
+    twitter_local['local_index'] = scaled_ind
+
+    out_path = "sentiment_indices/twitter_local_index.csv"
+    twitter_local.to_csv(out_path, index=False)
 else:
     # add call to correct model and function for Reddit
-    predict_reddit(file_name)
+    predict_reddit(df)
