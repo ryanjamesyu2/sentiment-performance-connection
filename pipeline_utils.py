@@ -5,7 +5,7 @@ pipeline defined in sentiment_pipeline.py.
 """
 
 # Import necessary libraries
-# from transformers import pipeline
+from transformers import pipeline
 from transformers import AutoModelForSequenceClassification
 # from transformers import TFAutoModelForSequenceClassification
 from transformers import AutoTokenizer, AutoConfig
@@ -13,6 +13,7 @@ import pipeline_configs as pc
 import pandas as pd
 import numpy as np
 from scipy.special import softmax
+import torch
 
 
 def calc_sentiment_score(scores, config):
@@ -78,29 +79,39 @@ def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
     # Iterate through data frame and predict sentiment for each entry
     # Adapted from example code provided in HuggingFace model card
     # https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-    config = AutoConfig.from_pretrained(model_path)
-    model = AutoModelForSequenceClassification.from_pretrained(model_path)
+    # tokenizer = AutoTokenizer.from_pretrained(model_path)
+    # config = AutoConfig.from_pretrained(model_path)
+    # model = AutoModelForSequenceClassification.from_pretrained(model_path)
 
-    sentiment_scores = []
+    # sentiment_scores = []
 
-    # Iterate through each text
-    for t in df["text"]:
-        # Generate output from model
-        encoded_input = tokenizer(
-            t,
-            padding='max_length',
-            truncation=True,
-            max_length=512,
-            return_tensors='pt'
-        )
-        output = model(**encoded_input)
-        scores = output[0][0].detach().numpy()
-        scores = softmax(scores)
-        sent_score = calc_sentiment_score(scores, config)
+    # # Iterate through each text
+    # for t in df["text"]:
+    #     # Generate output from model
+    #     encoded_input = tokenizer(
+    #         t,
+    #         padding='max_length',
+    #         truncation=True,
+    #         max_length=512,
+    #         return_tensors='pt'
+    #     )
+    #     output = model(**encoded_input)
+    #     scores = output[0][0].detach().numpy()
+    #     scores = softmax(scores)
+    #     sent_score = calc_sentiment_score(scores, config)
 
-        # Append to list of sentiment scores
-        sentiment_scores.append(sent_score)
+    #     # Append to list of sentiment scores
+    #     sentiment_scores.append(sent_score)
+
+    # Run with pre-built HuggingFace pipeline, while batching inputs
+    classifier = pipeline(
+        "sentiment-analysis",
+        model=model_path,
+        device=0 if torch.cuda.is_available() else -1,
+        batch_size=64
+    )
+
+    sentiment_scores = classifier(df["text"].tolist())
 
     # Add sentiment scores to data frame and save to new .csv file
     df["sentiment_scores"] = sentiment_scores
