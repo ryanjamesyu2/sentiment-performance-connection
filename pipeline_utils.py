@@ -83,10 +83,22 @@ def predict_reddit(df, out_file_name="reddit_sentiment_scores.csv"):
     return df
 
 
-def predict_google(df):
+def predict_google(df, out_file_name="google_sentiment_scores.csv"):
     # add code to predict sentiment for Google data using the appropriate
     # model and function
-    pass
+    model_path = pc.GOOGLE_MODEL
+    model_function = pc.GOOGLE_FUNCTION
+
+    # Run with pre-built HuggingFace pipeline, while batching inputs
+    sentiment_scores = predict_sentiment(model_path, model_function, df)
+
+    # Calculate EV sentiment scores using class probabilities
+    # [TODO] adjust this function, since Google has 5 classes
+    final_scores = calc_sentiment_scores(sentiment_scores)
+
+    # Add sentiment scores to data frame and save to new .csv file
+    df["sentiment_scores"] = final_scores
+    df.to_csv(out_file_name, index=False)
 
 
 def aggregate_local_index(in_df, weights):
@@ -154,7 +166,7 @@ def scale_local_index(df):
     out_df = pd.DataFrame(columns=df.columns)
 
     # Iterate through each week
-    for week in df['game_id']:
+    for week in df['game_id'].unique():
         # Get index entries for that week
         week_inds = (df['game_id'] == week)
         week_df = df[week_inds]

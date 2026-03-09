@@ -32,8 +32,27 @@ df = pd.read_csv(file_path)
 # Load the appropriate model path and function based on the data source
 # Also generate weights based on a metadata column
 if data_source == "google":
+    # Rename column so column names are consistent
+    df['game_id'] = 'W' + df['week'].astype(str)
+    # [TODO] Add column for subject when we have it (thru LLM)
+    df = df[['game_id', 'text_body']]
+    df = df.rename(columns={'text_body': 'text'})
+
+    # [TODO] If necessary, call function to split into sentences
+
     # add call to correct model and function for Google
-    predict_google(df, "google")
+    df = predict_google(df)
+    # [TODO] Calculate weights for Google data
+    wts = np.ones(len(df))    # placeholder for equal weights for now
+
+    google_local = aggregate_local_index(df, wts)
+
+    # Rescale local Google index
+    google_local = scale_local_index(google_local)
+
+    # Save to CSV
+    out_path = "sentiment_indices/google_local_index.csv"
+    google_local.to_csv(out_path, index=False)
 elif data_source == "twitter":
     # add call to correct model and function for Twitter
     df = df[["player", "game_id", "text", "engagement_score"]]
@@ -80,11 +99,11 @@ else:
     }
     df['game_id'] = df['post_title'].map(week_dict)
 
+    # [TODO] Use LLM to assign comments to teams, with column name "subject"
+    pass
+
     # predict sentiment for comments
     df = predict_reddit(df)
-
-    # Run through LLM to assign comments to teams, with column name "subject"
-    pass
 
     # create weights for local aggregation
     # use this formula so that weights fall in similar range as Twitter posts
