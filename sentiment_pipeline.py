@@ -18,6 +18,7 @@ from pipeline_utils import predict_reddit
 from pipeline_utils import predict_google
 from pipeline_utils import aggregate_local_index
 from pipeline_utils import scale_local_index
+from pipeline_utils import map_reddit_thread_to_week
 import pandas as pd
 import numpy as np
 
@@ -72,43 +73,40 @@ elif data_source == "twitter":
     out_path = "sentiment_indices/twitter_local_index.csv"
     twitter_local.to_csv(out_path, index=False)
 else:
-    df = df[['post_title', 'depth', 'body', 'score']]
+    df = df[['post_title', 'depth', 'body', 'score',
+             'home_team', 'away_team', 'predicted_tag']]
+
+    # filter out unsure comments (which is most of the data set currently)
+    # also assign team using home and away team columns
+    df = df[df['predicted_tag'] != 'unsure']
+    df = df.assign(subject=np.where(
+        df['predicted_tag'] == 'home_team',
+        df['home_team'],
+        df['away_team']
+    ))
 
     # Rename column so column names are consistent
-    df.rename(columns={'body': 'text'})
+    df = df.rename(columns={'body': 'text'})
 
     # Map post title to week number
-    week_dict = {
-        'Post Game Thread: Washington Commanders at Philadelphia Eagles': 18,
-        'Post Game Thread: Dallas Cowboys at Philadelphia Eagles': 1,
-        'Post Game Thread: Philadelphia Eagles at Kansas City Chiefs': 2,
-        'Post Game Thread: Los Angeles Rams at Philadelphia Eagles': 3,
-        'Post Game Thread: Philadelphia Eagles at Tampa Bay Buccaneers': 4,
-        'Post Game Thread: Denver Broncos at Philadelphia Eagles': 5,
-        'Post Game Thread: Philadelphia Eagles at New York Giants': 6,
-        'Post Game Thread: Philadelphia Eagles at Minnesota Vikings': 7,
-        'Post Game Thread: New York Giants at Philadelphia Eagles': 8,
-        'Post Game Thread: Philadelphia Eagles at Green Bay Packers': 10,
-        'Post Game Thread: Detroit Lions at Philadelphia Eagles': 11,
-        'Post Game Thread: Philadelphia Eagles at Dallas Cowboys': 12,
-        'Post Game Thread: Chicago Bears at Philadelphia Eagles': 13,
-        'Post Game Thread: Philadelphia Eagles at Los Angeles Chargers': 14,
-        'Post Game Thread: Las Vegas Raiders at Philadelphia Eagles': 15,
-        'Post Game Thread: Philadelphia Eagles at Washington Commanders': 16,
-        'Post Game Thread: Philadelphia Eagles at Buffalo Bills': 17
-    }
-    df['game_id'] = df['post_title'].map(week_dict)
+    df['game_id'] = df['post_title'].apply(map_reddit_thread_to_week)
 
-    # [TODO] Use LLM to assign comments to teams, with column name "subject"
-    pass
+    # Clip scores at 0 to avoid negative scores
+    df['score'] = df['score'].clip(0)
+
+    # Keep relevant columns
+    df = df[['subject', 'game_id', 'text', 'score']]
 
     # predict sentiment for comments
     df = predict_reddit(df)
 
     # create weights for local aggregation
     # use this formula so that weights fall in similar range as Twitter posts
-    log_eng_scores = np.log(df['score'] + 1) / 2
-    reddit_local = aggregate_local_index(df, log_eng_scores)
+    log_scores = np.log(df['score'] + 1) / 2
+    reddit_local = aggregate_local_index(df, log_scores)
+
+    # Rescale local index to be between 0 and 100 on a weekly basis
+    reddit_local = scale_local_index(reddit_local)
 
     # Save to CSV file
     out_path = "sentiment_indices/reddit_local_index.csv"
