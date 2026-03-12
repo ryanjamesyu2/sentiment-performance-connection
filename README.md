@@ -15,3 +15,6 @@ The virtual environment used for all the code and processing in this repository 
 * desearch-py
 * python-dotenv
 * pysentiment2
+* spaCy
+
+For spaCy, need to run the following command first, only once: python -m spacy download en_core_web_sm

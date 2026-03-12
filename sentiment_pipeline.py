@@ -19,6 +19,8 @@ from pipeline_utils import predict_google
 from pipeline_utils import aggregate_local_index
 from pipeline_utils import scale_local_index
 from pipeline_utils import map_reddit_thread_to_week
+from pipeline_utils import extract_sentences
+from pipeline_utils import calc_google_weights
 import pandas as pd
 import numpy as np
 
@@ -34,17 +36,21 @@ df = pd.read_csv(file_path)
 # Also generate weights based on a metadata column
 if data_source == "google":
     # Rename column so column names are consistent
-    df['game_id'] = 'W' + df['week'].astype(str)
-    # [TODO] Add column for subject when we have it (thru LLM)
-    df = df[['game_id', 'text_body']]
-    df = df.rename(columns={'text_body': 'text'})
+    df = df.rename(columns={'team': 'subject', 'game_no': 'game_id'})
+    df['game_id'] = 'W' + df['game_id'].astype(str)
+    df = df[['subject', 'game_id', 'text_body', 'title']]
 
-    # [TODO] If necessary, call function to split into sentences
+    # call function to split into sentences
+    df['text'] = df['text_body'].apply(lambda x: extract_sentences(x))
+    df = df.drop('text_body', axis=1)
+    df = df.explode('text').reset_index(drop=True)
+
+    # Calculate weights for Google data
+    wts = calc_google_weights(df)
+    df = df.drop('title', axis=1)
 
     # add call to correct model and function for Google
     df = predict_google(df)
-    # [TODO] Calculate weights for Google data
-    wts = np.ones(len(df))    # placeholder for equal weights for now
 
     google_local = aggregate_local_index(df, wts)
 
