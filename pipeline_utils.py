@@ -9,6 +9,7 @@ from transformers import pipeline
 import pipeline_configs as pc
 import pandas as pd
 import numpy as np
+import spacy
 import torch
 
 
@@ -36,7 +37,8 @@ def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
     model_function = pc.TWITTER_FUNCTION
 
     # Run with pre-built HuggingFace pipeline, while batching inputs
-    sentiment_scores = predict_sentiment(model_path, model_function, df)
+    classifier = load_classifier(model_path, model_function)
+    sentiment_scores = predict_sentiment(classifier, df)
 
     # Calculate EV sentiment scores using class probabilities
     final_scores = calc_sentiment_scores(sentiment_scores)
@@ -71,7 +73,8 @@ def predict_reddit(df, out_file_name="reddit_sentiment_scores.csv"):
     model_function = pc.REDDIT_FUNCTION
 
     # Run with pre-built HuggingFace pipeline, while batching inputs
-    sentiment_scores = predict_sentiment(model_path, model_function, df)
+    classifier = load_classifier(model_path, model_function)
+    sentiment_scores = predict_sentiment(classifier, df)
 
     # Calculate EV sentiment scores using class probabilities
     final_scores = calc_sentiment_scores(sentiment_scores)
@@ -89,8 +92,10 @@ def predict_google(df, out_file_name="google_sentiment_scores.csv"):
     model_path = pc.GOOGLE_MODEL
     model_function = pc.GOOGLE_FUNCTION
 
+    classifier = load_classifier(model_path, model_function)
+
     # Run with pre-built HuggingFace pipeline, while batching inputs
-    sentiment_scores = predict_sentiment(model_path, model_function, df)
+    sentiment_scores = predict_sentiment(classifier, df)
 
     # Calculate EV sentiment scores using class probabilities
     # [TODO] adjust this function, since Google has 5 classes
@@ -99,6 +104,8 @@ def predict_google(df, out_file_name="google_sentiment_scores.csv"):
     # Add sentiment scores to data frame and save to new .csv file
     df["sentiment_scores"] = final_scores
     df.to_csv(out_file_name, index=False)
+
+    return df
 
 
 def aggregate_local_index(in_df, weights):
@@ -186,7 +193,33 @@ def scale_local_index(df):
     return out_df
 
 
-def predict_sentiment(model_path, model_function, df):
+def load_classifier(model_path, model_function):
+    """
+    A function to load a pretrained HuggingFace model
+
+    Parameters
+    ----------
+    model_path: str
+        A string containing the model path, as described on the HuggingFace
+        model card
+    model_function: str
+        A string containing the model function, as described on the HuggingFace
+        model card
+
+    Returns
+    -------
+    classifier
+        A HuggingFace pipeline object containing the loaded model
+    """
+    return pipeline(
+        model_function,
+        model=model_path,
+        device=0 if torch.cuda.is_available() else -1,
+        batch_size=64
+    )
+
+
+def predict_sentiment(classifier, df):
     """
     A function to load a pretrained HuggingFace model pipeline and predict
     the sentiment of a given list of texts
@@ -208,16 +241,9 @@ def predict_sentiment(model_path, model_function, df):
     list
         list of json objects containing class labels and probabilities
     """
-    classifier = pipeline(
-        model_function,
-        model=model_path,
-        device=0 if torch.cuda.is_available() else -1,
-        batch_size=64
-    )
-
     sentiment_scores = classifier(
         df["text"].tolist(),
-        padding="max_length",
+        padding=True,
         truncation=True,
         max_length=512,
         top_k=None
@@ -229,10 +255,14 @@ def predict_sentiment(model_path, model_function, df):
 def calc_sentiment_scores(model_output):
     final_scores = []
     for example in model_output:
-        scores_dict = {d["label"].lower(): d["score"] for d in example}
+        pos = neg = 0.0
 
-        pos = scores_dict.get("positive", 0.0)
-        neg = scores_dict.get("negative", 0.0)
+        for d in example:
+            label = d["label"].lower()
+            if label == "positive":
+                pos = d["score"]
+            elif label == "negative":
+                neg = d["score"]
 
         final_scores.append(pos - neg)
 
@@ -436,3 +466,65 @@ def map_reddit_thread_to_week(thread_title):
         'Post Game Thread: Dallas Cowboys at New York Giants': 'W18'
     }
     return week_dict.get(thread_title, "Unknown")
+
+
+def extract_sentences(text):
+    """
+    A function to split a given text into sentences. This is necessary for the
+    Google data to avoid maximum token limits.
+
+    Parameters:
+    -----------
+    texts: str
+        A string containing the text to be split into sentences
+
+    Returns:
+    --------
+    list of str
+        A list of strings, where each string is a sentence from the input text
+    """
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(text)
+    sentences = [sent.text.strip() for sent in doc.sents]
+    return sentences
+
+
+def calc_google_weights(df, k=5.52):
+    """
+    A function to calculate the weights of Google article sentences following
+    a exponential decaying pattern, where earlier sentences are weighted more
+    heavily. The first 25% of the sentences carry about 75% of the total
+    weight by default. The initial code was generated by ChatGPT.
+
+    Parameters
+    ----------
+    df: DataFrame
+        A data frame containing the Google article data
+    k: float
+        The decay rate for the exponential function
+
+    Returns
+    -------
+    List
+        A list containing the weights for each sentence
+    """
+    # position of each sentence within article
+    sent_idx = df.groupby("title").cumcount()
+
+    # number of sentences per article
+    n_sent = df.groupby("title")["title"].transform("size")
+
+    # normalized position in [0,1]
+    x = sent_idx / (n_sent - 1)
+
+    # handle single-sentence articles
+    x = x.fillna(0)
+
+    # exponential decay
+    raw = np.exp(-k * x)
+
+    # normalize within each article
+    weights = raw / raw.groupby(df["title"]).transform("sum")
+
+    # return as a list
+    return weights.tolist()
