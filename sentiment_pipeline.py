@@ -63,6 +63,7 @@ if data_source == "google":
 elif data_source == "twitter":
     # add call to correct model and function for Twitter
     df = df[["player", "game_id", "text", "engagement_score"]]
+
     df = predict_twitter(df)
 
     # Aggregate sentiment scores to player/team and week level

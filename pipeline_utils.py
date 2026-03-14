@@ -37,7 +37,8 @@ def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
     model_function = pc.TWITTER_FUNCTION
 
     # Run with pre-built HuggingFace pipeline, while batching inputs
-    sentiment_scores = predict_sentiment(model_path, model_function, df)
+    classifier = load_classifier(model_path, model_function)
+    sentiment_scores = predict_sentiment(classifier, df)
 
     # Calculate EV sentiment scores using class probabilities
     final_scores = calc_sentiment_scores(sentiment_scores)
@@ -72,7 +73,8 @@ def predict_reddit(df, out_file_name="reddit_sentiment_scores.csv"):
     model_function = pc.REDDIT_FUNCTION
 
     # Run with pre-built HuggingFace pipeline, while batching inputs
-    sentiment_scores = predict_sentiment(model_path, model_function, df)
+    classifier = load_classifier(model_path, model_function)
+    sentiment_scores = predict_sentiment(classifier, df)
 
     # Calculate EV sentiment scores using class probabilities
     final_scores = calc_sentiment_scores(sentiment_scores)
@@ -90,8 +92,10 @@ def predict_google(df, out_file_name="google_sentiment_scores.csv"):
     model_path = pc.GOOGLE_MODEL
     model_function = pc.GOOGLE_FUNCTION
 
+    classifier = load_classifier(model_path, model_function)
+
     # Run with pre-built HuggingFace pipeline, while batching inputs
-    sentiment_scores = predict_sentiment(model_path, model_function, df)
+    sentiment_scores = predict_sentiment(classifier, df)
 
     # Calculate EV sentiment scores using class probabilities
     # [TODO] adjust this function, since Google has 5 classes
@@ -189,7 +193,33 @@ def scale_local_index(df):
     return out_df
 
 
-def predict_sentiment(model_path, model_function, df):
+def load_classifier(model_path, model_function):
+    """
+    A function to load a pretrained HuggingFace model
+
+    Parameters
+    ----------
+    model_path: str
+        A string containing the model path, as described on the HuggingFace
+        model card
+    model_function: str
+        A string containing the model function, as described on the HuggingFace
+        model card
+
+    Returns
+    -------
+    classifier
+        A HuggingFace pipeline object containing the loaded model
+    """
+    return pipeline(
+        model_function,
+        model=model_path,
+        device=0 if torch.cuda.is_available() else -1,
+        batch_size=64
+    )
+
+
+def predict_sentiment(classifier, df):
     """
     A function to load a pretrained HuggingFace model pipeline and predict
     the sentiment of a given list of texts
@@ -211,16 +241,9 @@ def predict_sentiment(model_path, model_function, df):
     list
         list of json objects containing class labels and probabilities
     """
-    classifier = pipeline(
-        model_function,
-        model=model_path,
-        device=0 if torch.cuda.is_available() else -1,
-        batch_size=64
-    )
-
     sentiment_scores = classifier(
         df["text"].tolist(),
-        padding="max_length",
+        padding=True,
         truncation=True,
         max_length=512,
         top_k=None
@@ -232,10 +255,14 @@ def predict_sentiment(model_path, model_function, df):
 def calc_sentiment_scores(model_output):
     final_scores = []
     for example in model_output:
-        scores_dict = {d["label"].lower(): d["score"] for d in example}
+        pos = neg = 0.0
 
-        pos = scores_dict.get("positive", 0.0)
-        neg = scores_dict.get("negative", 0.0)
+        for d in example:
+            label = d["label"].lower()
+            if label == "positive":
+                pos = d["score"]
+            elif label == "negative":
+                neg = d["score"]
 
         final_scores.append(pos - neg)
 
