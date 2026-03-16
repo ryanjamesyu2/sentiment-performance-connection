@@ -13,9 +13,10 @@ results are then saved to a new .csv file.
 
 # Import necessary libraries
 from sys import argv
-from pipeline_utils import predict_twitter
-from pipeline_utils import predict_reddit
-from pipeline_utils import predict_google
+# from pipeline_utils import predict_twitter
+# from pipeline_utils import predict_reddit
+# from pipeline_utils import predict_google
+from pipeline_utils import predict_sentiment
 from pipeline_utils import aggregate_local_index
 from pipeline_utils import scale_local_index
 from pipeline_utils import map_reddit_thread_to_week
@@ -48,37 +49,14 @@ if data_source == "google":
     # Calculate weights for Google data
     wts = calc_google_weights(df)
     df = df.drop('title', axis=1)
-
-    # add call to correct model and function for Google
-    df = predict_google(df)
-
-    google_local = aggregate_local_index(df, wts)
-
-    # Rescale local Google index
-    google_local = scale_local_index(google_local)
-
-    # Save to CSV
-    out_path = "sentiment_indices/google_local_index.csv"
-    google_local.to_csv(out_path, index=False)
 elif data_source == "twitter":
     # add call to correct model and function for Twitter
     df = df[["player", "game_id", "text", "engagement_score"]]
-
-    df = predict_twitter(df)
-
-    # Aggregate sentiment scores to player/team and week level
-    log_eng_scores = df['engagement_score'].apply(lambda x: np.log(x + 1))
-
     # Rename column for consistency across data sources
     df = df.rename(columns={"player": "subject"})
-    twitter_local = aggregate_local_index(df, log_eng_scores)
 
-    # Rescale local index to be between 0 and 100 on a weekly basis
-    twitter_local = scale_local_index(twitter_local)
-
-    # Save to CSV file
-    out_path = "sentiment_indices/twitter_local_index.csv"
-    twitter_local.to_csv(out_path, index=False)
+    # Aggregate sentiment scores to player/team and week level
+    wts = df['engagement_score'].apply(lambda x: np.log(x + 1))
 else:
     df = df[['post_title', 'depth', 'body', 'score',
              'home_team', 'away_team', 'predicted_tag']]
@@ -104,17 +82,15 @@ else:
     # Keep relevant columns
     df = df[['subject', 'game_id', 'text', 'score']]
 
-    # predict sentiment for comments
-    df = predict_reddit(df)
-
     # create weights for local aggregation
     # use this formula so that weights fall in similar range as Twitter posts
-    log_scores = np.log(df['score'] + 1) / 2
-    reddit_local = aggregate_local_index(df, log_scores)
+    wts = np.log(df['score'] + 1) / 2
 
-    # Rescale local index to be between 0 and 100 on a weekly basis
-    reddit_local = scale_local_index(reddit_local)
+# Predict sentiment and create local index for data
+df = predict_sentiment(df, data_source)
+local_index = aggregate_local_index(df, wts)
+local_index = scale_local_index(local_index)
 
-    # Save to CSV file
-    out_path = "sentiment_indices/reddit_local_index.csv"
-    reddit_local.to_csv(out_path, index=False)
+# Save to CSV
+out_path = "sentiment_indices/" + data_source + "_local_index.csv"
+local_index.to_csv(out_path, index=False)
