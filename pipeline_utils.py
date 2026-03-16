@@ -13,7 +13,7 @@ import spacy
 import torch
 
 
-def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
+def predict_sentiment(df, data_source, out_file_root="sentiment_scores.csv"):
     """
     A function to predict the sentiment of Twitter text data using a
     pre-trained HuggingFace model
@@ -22,9 +22,13 @@ def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
     -----------
     df: pandas DataFrame
         The preprocessed Twitter data
-    out_file_name: str
-        The name of the .csv file to save the results to (default is
-        "twitter_sentiment_scores.csv")
+    data_source: str
+        A string indicating the data source. Either "twitter", "reddit",
+        or "google"
+    out_file_root: str
+        The root of the .csv file to save the results to (default is
+        "sentiment_scores.csv"). The data source will be appended to
+        this root (i.e. "twitter_sentiment_scores.csv")
 
     Returns:
     --------
@@ -33,77 +37,18 @@ def predict_twitter(df, out_file_name="twitter_sentiment_scores.csv"):
         sentiment scores for each text entry
     """
 
-    model_path = pc.TWITTER_MODEL
-    model_function = pc.TWITTER_FUNCTION
+    model_path, model_function = retrieve_model_info(data_source)
 
     # Run with pre-built HuggingFace pipeline, while batching inputs
     classifier = load_classifier(model_path, model_function)
-    sentiment_scores = predict_sentiment(classifier, df)
+    sentiment_scores = run_classifier(classifier, df)
 
     # Calculate EV sentiment scores using class probabilities
     final_scores = calc_sentiment_scores(sentiment_scores)
 
     # Add sentiment scores to data frame and save to new .csv file
     df["sentiment_scores"] = final_scores
-    df.to_csv(out_file_name, index=False)
-
-    return df
-
-
-def predict_reddit(df, out_file_name="reddit_sentiment_scores.csv"):
-    """
-    A function to predict the sentiment of Reddit text data using a
-    pre-trained HuggingFace model
-
-    Parameters:
-    -----------
-    df: pandas DataFrame
-        The preprocessed Reddit data
-    out_file_name: str
-        The name of the .csv file to save the results to (default is
-        "reddit_sentiment_scores.csv")
-
-    Returns:
-    --------
-    df: pandas DataFrame
-        The input data frame with an additional column containing the predicted
-        sentiment scores for each text entry
-    """
-    model_path = pc.REDDIT_MODEL
-    model_function = pc.REDDIT_FUNCTION
-
-    # Run with pre-built HuggingFace pipeline, while batching inputs
-    classifier = load_classifier(model_path, model_function)
-    sentiment_scores = predict_sentiment(classifier, df)
-
-    # Calculate EV sentiment scores using class probabilities
-    final_scores = calc_sentiment_scores(sentiment_scores)
-
-    # Add sentiment scores to data frame and save to new .csv file
-    df["sentiment_scores"] = final_scores
-    df.to_csv(out_file_name, index=False)
-
-    return df
-
-
-def predict_google(df, out_file_name="google_sentiment_scores.csv"):
-    # add code to predict sentiment for Google data using the appropriate
-    # model and function
-    model_path = pc.GOOGLE_MODEL
-    model_function = pc.GOOGLE_FUNCTION
-
-    classifier = load_classifier(model_path, model_function)
-
-    # Run with pre-built HuggingFace pipeline, while batching inputs
-    sentiment_scores = predict_sentiment(classifier, df)
-
-    # Calculate EV sentiment scores using class probabilities
-    # [TODO] adjust this function, since Google has 5 classes
-    final_scores = calc_sentiment_scores(sentiment_scores)
-
-    # Add sentiment scores to data frame and save to new .csv file
-    df["sentiment_scores"] = final_scores
-    df.to_csv(out_file_name, index=False)
+    df.to_csv(data_source + "_" + out_file_root, index=False)
 
     return df
 
@@ -219,7 +164,7 @@ def load_classifier(model_path, model_function):
     )
 
 
-def predict_sentiment(classifier, df):
+def run_classifier(classifier, df):
     """
     A function to load a pretrained HuggingFace model pipeline and predict
     the sentiment of a given list of texts
@@ -528,3 +473,32 @@ def calc_google_weights(df, k=5.52):
 
     # return as a list
     return weights.tolist()
+
+
+def retrieve_model_info(data_source):
+    """
+    A function to retrieve the model path and function for a given data source
+
+    Parameters
+    ----------
+    data_source: str
+        A string indicating the data source. Either "twitter", "reddit",
+        or "google"
+
+    Returns
+    -------
+    model_path: str
+        A string containing the model path, as described on the HuggingFace
+        model card
+    model_function: str
+        A string containing the model function, as described on the HuggingFace
+        model card
+    """
+    if data_source == "twitter":
+        return pc.TWITTER_MODEL, pc.TWITTER_FUNCTION
+    elif data_source == "reddit":
+        return pc.REDDIT_MODEL, pc.REDDIT_FUNCTION
+    elif data_source == "google":
+        return pc.GOOGLE_MODEL, pc.GOOGLE_FUNCTION
+
+    return "", ""
