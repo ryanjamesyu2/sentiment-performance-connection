@@ -22,6 +22,7 @@ from pipeline_utils import scale_local_index
 from pipeline_utils import map_reddit_thread_to_week
 from pipeline_utils import extract_sentences
 from pipeline_utils import calc_google_weights
+from pipeline_utils import get_game_start_times
 import pandas as pd
 import numpy as np
 
@@ -38,6 +39,26 @@ df = pd.read_csv(file_path)
 if data_source == "google":
     # Rename column so column names are consistent
     df = df.rename(columns={'team': 'subject', 'game_no': 'game_id'})
+
+    bye_weeks = {
+        'Philadelphia Eagles': 9,
+        'Seattle Seahawks': 8,
+        'Chicago Bears': 5,
+        'Tampa Bay Buccaneers': 9,
+        'Buffalo Bills': 7,
+        'Cincinnati Bengals': 10,
+        'Kansas City Chiefs': 10,
+        'Indianapolis Colts': 11,
+        'New England Patriots': 14,
+        'Dallas Cowboys': 10
+    }
+
+    # Adjust game_id to account for bye weeks
+    df['after_bye'] = df.apply(
+        lambda x: x['game_id'] >= bye_weeks[x['subject']], axis=1
+    )
+    df['game_id'] = df['game_id'] + 1 if df['after_bye'] else df['game_id']
+
     df['game_id'] = 'W' + df['game_id'].astype(str)
     df = df[['subject', 'game_id', 'text_body', 'title']]
 
@@ -50,13 +71,42 @@ if data_source == "google":
     wts = calc_google_weights(df)
     df = df.drop('title', axis=1)
 elif data_source == "twitter":
-    # add call to correct model and function for Twitter
-    df = df[["player", "game_id", "text", "engagement_score"]]
-    # Rename column for consistency across data sources
-    df = df.rename(columns={"player": "subject"})
+    # # SPRINT 1 - WEIGHT BY ENGAGEMENT
+    # # add call to correct model and function for Twitter
+    # df = df[["player", "team", "game_id", "text", "engagement_score"]]
+    # # Rename column for consistency across data sources
+    # df = df.rename(columns={"player": "subject"})
 
-    # Aggregate sentiment scores to player/team and week level
-    wts = df['engagement_score'].apply(lambda x: np.log(x + 1))
+    # # Aggregate sentiment scores to player/team and week level
+    # wts = df['engagement_score'].apply(lambda x: np.log(x + 1))
+
+    # SPRINT 2 - WEIGHT BY TIME PROXIMITY TO GAME
+    df = df[["team", "player", "game_id", "text", "created_at"]]
+    df['created_at'] = pd.to_datetime(df['created_at'])
+
+    z = zip(df['team'], df['game_id'])
+    df['game_start_time'] = [get_game_start_times(x) for x in z]
+    df['game_start_time'] = pd.to_datetime(df['game_start_time'])
+
+    # Game start times are in ET, while tweets are in GMT/UTC
+    # 1. Localize to Eastern Time (handles EST/EDT)
+    df['game_start_time'] = df['game_start_time'].dt.tz_localize('US/Eastern')
+
+    # 2. Convert to GMT (UTC)
+    df['game_start_time'] = df['game_start_time'].dt.tz_convert('GMT')
+
+    # Calculate hours of difference
+    df['hours_diff'] = (df['created_at'] - df['game_start_time'])
+    df['hours_diff'] = np.abs(df['hours_diff'].dt.total_seconds() / 3600)
+
+    # Calculate weights, with rate parameter from ChatGPT
+    lam = -np.log(0.25) / 24
+    wts = np.exp(-lam * df['hours_diff'])
+
+    # Drop team column and rename columns
+    df = df.drop(['created_at', 'game_start_time'],
+                 axis=1)
+    df = df.rename(columns={'player': 'subject'})
 else:
     df = df[['post_title', 'depth', 'body', 'score',
              'home_team', 'away_team', 'predicted_tag']]
@@ -87,10 +137,10 @@ else:
     wts = np.log(df['score'] + 1) / 2
 
 # Predict sentiment and create local index for data
-df = predict_sentiment(df, data_source)
+df = predict_sentiment(df, data_source, "sentiment_scores_sprint2.csv")
 local_index = aggregate_local_index(df, wts)
 local_index = scale_local_index(local_index)
 
 # Save to CSV
-out_path = "sentiment_indices/" + data_source + "_local_index.csv"
+out_path = "sentiment_indices/" + data_source + "_local_index_sprint2.csv"
 local_index.to_csv(out_path, index=False)
