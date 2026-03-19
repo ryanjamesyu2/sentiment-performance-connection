@@ -1,0 +1,901 @@
+player,team,week,global_index
+Jalen Hurts,Philadelphia Eagles,W1,56.78867293165554
+Saquon Barkley,Philadelphia Eagles,W1,64.85079145132946
+AJ Brown,Philadelphia Eagles,W1,52.08501399127445
+Quinyon Mitchell,Philadelphia Eagles,W1,56.61490165980233
+Zack Baun,Philadelphia Eagles,W1,64.88535985304877
+Josh Allen,Buffalo Bills,W1,26.57453748944586
+James Cook,Buffalo Bills,W1,32.285836497805136
+Dalton Kincaid,Buffalo Bills,W1,30.060415375264725
+Matt Milano,Buffalo Bills,W1,31.282843000858364
+Greg Rousseau,Buffalo Bills,W1,29.563027880850278
+Joe Burrow,Cincinnati Bengals,W1,50.6039884449321
+JaMarr Chase,Cincinnati Bengals,W1,16.769080950318866
+Tee Higgins,Cincinnati Bengals,W1,49.682321330259335
+Trey Hendrickson,Cincinnati Bengals,W1,49.83000883459631
+Evan McPherson,Cincinnati Bengals,W1,50.11775217032972
+Daniel Jones,Indianapolis Colts,W1,60.048660915961406
+Jonathan Taylor,Indianapolis Colts,W1,55.69360368333944
+Michael Pittman Jr,Indianapolis Colts,W1,73.55129793649455
+Quenton Nelson,Indianapolis Colts,W1,69.92714838950046
+Laiatu Latu,Indianapolis Colts,W1,67.50961108582736
+Patrick Mahomes,Kansas City Chiefs,W1,57.86571702024106
+Travis Kelce,Kansas City Chiefs,W1,48.509842039236595
+Xavier Worthy,Kansas City Chiefs,W1,50.11502577406145
+Caleb Williams,Kansas City Chiefs,W1,57.96465509532292
+DJ Moore,Kansas City Chiefs,W1,54.4506254105749
+Keenan Allen,Chicago Bears,W1,32.494947906422595
+Rome Odunze,Chicago Bears,W1,43.945443953858145
+Jaylon Johnson,Chicago Bears,W1,38.70930889893852
+Baker Mayfield,Chicago Bears,W1,43.454640031937124
+Mike Evans,Chicago Bears,W1,42.881181866805875
+Chris Godwin,Tampa Bay Buccaneers,W1,63.70199591442162
+Antoine Winfield Jr,Tampa Bay Buccaneers,W1,80.12051818205339
+Vita Vea,Tampa Bay Buccaneers,W1,63.02125483281157
+Sam Darnold,Tampa Bay Buccaneers,W1,63.7844470669852
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W1,66.22353148587831
+Tariq Woolen,Seattle Seahawks,W1,44.78331170221509
+Kenneth Walker III,Seattle Seahawks,W1,60.38800767405152
+Devon Witherspoon,Seattle Seahawks,W1,59.942452363271656
+Dak Prescott,Seattle Seahawks,W1,54.58623826156095
+CeeDee Lamb,Seattle Seahawks,W1,56.32219762912543
+Javonte Williams,Dallas Cowboys,W1,72.20703078732214
+George Pickens,Dallas Cowboys,W1,63.16239470960019
+Drake Maye,Dallas Cowboys,W1,61.14217657554032
+TreVeyon Henderson,Dallas Cowboys,W1,70.64571391985871
+Stefon Diggs,Dallas Cowboys,W1,79.90561980541129
+Christian Gonzalez,New England Patriots,W1,49.28101841734023
+Kayshon Boutte,New England Patriots,W1,70.72046730623424
+Quinnen Williams,New England Patriots,W1,45.4337496056878
+Chris Jones,New England Patriots,W1,43.693122687838674
+Trent McDuffie,New England Patriots,W1,42.62347227235935
+Jalen Hurts,Philadelphia Eagles,W2,46.753211751781336
+Saquon Barkley,Philadelphia Eagles,W2,59.74202006424545
+AJ Brown,Philadelphia Eagles,W2,47.74659089441225
+Quinyon Mitchell,Philadelphia Eagles,W2,64.29773485135085
+Zack Baun,Philadelphia Eagles,W2,60.80846258041462
+Josh Allen,Buffalo Bills,W2,55.94396495202983
+James Cook,Buffalo Bills,W2,64.76238374893946
+Dalton Kincaid,Buffalo Bills,W2,65.92383593540146
+Matt Milano,Buffalo Bills,W2,39.26412228490773
+Greg Rousseau,Buffalo Bills,W2,71.12689701375653
+Joe Burrow,Cincinnati Bengals,W2,46.85164905924463
+JaMarr Chase,Cincinnati Bengals,W2,52.345166296677206
+Tee Higgins,Cincinnati Bengals,W2,52.340715089889756
+Trey Hendrickson,Cincinnati Bengals,W2,42.585961416333014
+Evan McPherson,Cincinnati Bengals,W2,52.80787156201419
+Daniel Jones,Indianapolis Colts,W2,50.60160469252705
+Jonathan Taylor,Indianapolis Colts,W2,72.31916412753503
+Michael Pittman Jr,Indianapolis Colts,W2,47.78901799662348
+Quenton Nelson,Indianapolis Colts,W2,47.207144515788364
+Laiatu Latu,Indianapolis Colts,W2,48.26126484028201
+Patrick Mahomes,Kansas City Chiefs,W2,52.63980058054511
+Travis Kelce,Kansas City Chiefs,W2,46.601113489518156
+Xavier Worthy,Kansas City Chiefs,W2,38.655883472021706
+Caleb Williams,Kansas City Chiefs,W2,44.660970226895216
+DJ Moore,Kansas City Chiefs,W2,43.54465515092814
+Keenan Allen,Chicago Bears,W2,20.736905712506143
+Rome Odunze,Chicago Bears,W2,30.65157863799435
+Jaylon Johnson,Chicago Bears,W2,10.229750284530752
+Baker Mayfield,Chicago Bears,W2,25.06078034378845
+Mike Evans,Chicago Bears,W2,22.553814577564403
+Chris Godwin,Tampa Bay Buccaneers,W2,60.76479622999266
+Antoine Winfield Jr,Tampa Bay Buccaneers,W2,73.1385693020597
+Vita Vea,Tampa Bay Buccaneers,W2,50.0
+Sam Darnold,Tampa Bay Buccaneers,W2,65.4264651878485
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W2,70.15783231152791
+Tariq Woolen,Seattle Seahawks,W2,80.20747807456887
+Kenneth Walker III,Seattle Seahawks,W2,53.372064622651536
+Devon Witherspoon,Seattle Seahawks,W2,45.85286653303609
+Dak Prescott,Seattle Seahawks,W2,53.35296854815351
+CeeDee Lamb,Seattle Seahawks,W2,52.41271077971233
+Javonte Williams,Dallas Cowboys,W2,41.41076470525368
+George Pickens,Dallas Cowboys,W2,50.154288093934895
+Drake Maye,Dallas Cowboys,W2,52.63128393158516
+TreVeyon Henderson,Dallas Cowboys,W2,26.92391786642223
+Stefon Diggs,Dallas Cowboys,W2,40.55108476903969
+Christian Gonzalez,New England Patriots,W2,75.48234185987334
+Kayshon Boutte,New England Patriots,W2,68.81235638484611
+Quinnen Williams,New England Patriots,W2,55.18434190009823
+Chris Jones,New England Patriots,W2,61.990037175922176
+Trent McDuffie,New England Patriots,W2,60.92038676044286
+Jalen Hurts,Philadelphia Eagles,W3,64.29755204928213
+Saquon Barkley,Philadelphia Eagles,W3,65.89152407362968
+AJ Brown,Philadelphia Eagles,W3,62.62467363692404
+Quinyon Mitchell,Philadelphia Eagles,W3,77.8033896683493
+Zack Baun,Philadelphia Eagles,W3,76.46950616089043
+Josh Allen,Buffalo Bills,W3,38.3028566395802
+James Cook,Buffalo Bills,W3,51.581894945733964
+Dalton Kincaid,Buffalo Bills,W3,53.203602334695375
+Matt Milano,Buffalo Bills,W3,41.275259748634255
+Greg Rousseau,Buffalo Bills,W3,48.83606721105156
+Joe Burrow,Cincinnati Bengals,W3,35.931868775482705
+JaMarr Chase,Cincinnati Bengals,W3,57.416216095270755
+Tee Higgins,Cincinnati Bengals,W3,54.0313973375267
+Trey Hendrickson,Cincinnati Bengals,W3,45.57083250686399
+Evan McPherson,Cincinnati Bengals,W3,64.26855852305526
+Daniel Jones,Indianapolis Colts,W3,45.50259964439498
+Jonathan Taylor,Indianapolis Colts,W3,62.912636576343914
+Michael Pittman Jr,Indianapolis Colts,W3,64.10469024727627
+Quenton Nelson,Indianapolis Colts,W3,40.06853559247192
+Laiatu Latu,Indianapolis Colts,W3,37.21618610844166
+Patrick Mahomes,Kansas City Chiefs,W3,55.07866849736477
+Travis Kelce,Kansas City Chiefs,W3,42.513954948071074
+Xavier Worthy,Kansas City Chiefs,W3,40.26945460347318
+Caleb Williams,Kansas City Chiefs,W3,47.165894357423994
+DJ Moore,Kansas City Chiefs,W3,62.030917409022514
+Keenan Allen,Chicago Bears,W3,60.69838097391459
+Rome Odunze,Chicago Bears,W3,79.68164053031033
+Jaylon Johnson,Chicago Bears,W3,72.9613787323742
+Baker Mayfield,Chicago Bears,W3,82.2196692827927
+Mike Evans,Chicago Bears,W3,55.53936191905019
+Chris Godwin,Tampa Bay Buccaneers,W3,65.59759256834576
+Antoine Winfield Jr,Tampa Bay Buccaneers,W3,73.39386538592478
+Vita Vea,Tampa Bay Buccaneers,W3,71.53418136119427
+Sam Darnold,Tampa Bay Buccaneers,W3,84.24549449282549
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W3,84.66133246747442
+Tariq Woolen,Seattle Seahawks,W3,58.024000754224275
+Kenneth Walker III,Seattle Seahawks,W3,67.92287349199337
+Devon Witherspoon,Seattle Seahawks,W3,54.47236114034978
+Dak Prescott,Seattle Seahawks,W3,39.05421653259747
+CeeDee Lamb,Seattle Seahawks,W3,34.13675696711455
+Javonte Williams,Dallas Cowboys,W3,47.559699466009484
+George Pickens,Dallas Cowboys,W3,50.679261001940304
+Drake Maye,Dallas Cowboys,W3,87.17808822900793
+TreVeyon Henderson,Dallas Cowboys,W3,59.50156778107001
+Stefon Diggs,Dallas Cowboys,W3,68.40978773527122
+Christian Gonzalez,New England Patriots,W3,56.981658692935454
+Kayshon Boutte,New England Patriots,W3,53.603182669375954
+Quinnen Williams,New England Patriots,W3,47.67940232655838
+Chris Jones,New England Patriots,W3,43.48935400898428
+Trent McDuffie,New England Patriots,W3,42.41970359350496
+Jalen Hurts,Philadelphia Eagles,W4,27.495151645198092
+Saquon Barkley,Philadelphia Eagles,W4,27.093904047065628
+AJ Brown,Philadelphia Eagles,W4,33.70128089680671
+Quinyon Mitchell,Philadelphia Eagles,W4,57.13029315358644
+Zack Baun,Philadelphia Eagles,W4,56.96024630917692
+Josh Allen,Buffalo Bills,W4,27.031928175854944
+James Cook,Buffalo Bills,W4,37.418038058661516
+Dalton Kincaid,Buffalo Bills,W4,38.06691614605338
+Matt Milano,Buffalo Bills,W4,18.245730588895412
+Greg Rousseau,Buffalo Bills,W4,7.873975493125663
+Joe Burrow,Cincinnati Bengals,W4,25.459101426470223
+JaMarr Chase,Cincinnati Bengals,W4,21.094665414813644
+Tee Higgins,Cincinnati Bengals,W4,27.264944985644256
+Trey Hendrickson,Cincinnati Bengals,W4,29.50862138037257
+Evan McPherson,Cincinnati Bengals,W4,41.138634305502876
+Daniel Jones,Indianapolis Colts,W4,47.22942761447069
+Jonathan Taylor,Indianapolis Colts,W4,43.13840663678
+Michael Pittman Jr,Indianapolis Colts,W4,70.17136844748458
+Quenton Nelson,Indianapolis Colts,W4,65.12117227831934
+Laiatu Latu,Indianapolis Colts,W4,76.99142286709301
+Patrick Mahomes,Kansas City Chiefs,W4,61.65593489739924
+Travis Kelce,Kansas City Chiefs,W4,84.98073686300349
+Xavier Worthy,Kansas City Chiefs,W4,81.51590582618103
+Caleb Williams,Kansas City Chiefs,W4,61.356982195952604
+DJ Moore,Kansas City Chiefs,W4,54.94023986599382
+Keenan Allen,Chicago Bears,W4,39.55753967456882
+Rome Odunze,Chicago Bears,W4,77.31224346119258
+Jaylon Johnson,Chicago Bears,W4,76.47285546059864
+Baker Mayfield,Chicago Bears,W4,62.147639229468794
+Mike Evans,Chicago Bears,W4,55.03257152705541
+Chris Godwin,Tampa Bay Buccaneers,W4,28.18368582399881
+Antoine Winfield Jr,Tampa Bay Buccaneers,W4,27.258673750284956
+Vita Vea,Tampa Bay Buccaneers,W4,24.00219411842914
+Sam Darnold,Tampa Bay Buccaneers,W4,28.50052280992835
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W4,32.7205202025015
+Tariq Woolen,Seattle Seahawks,W4,27.25021833131097
+Kenneth Walker III,Seattle Seahawks,W4,34.13674235001783
+Devon Witherspoon,Seattle Seahawks,W4,43.21994044418588
+Dak Prescott,Seattle Seahawks,W4,52.8357431732324
+CeeDee Lamb,Seattle Seahawks,W4,27.631560429743896
+Javonte Williams,Dallas Cowboys,W4,74.8627603401421
+George Pickens,Dallas Cowboys,W4,74.14351199925581
+Drake Maye,Dallas Cowboys,W4,82.77699242262358
+TreVeyon Henderson,Dallas Cowboys,W4,70.61598152864647
+Stefon Diggs,Dallas Cowboys,W4,82.8434047319191
+Christian Gonzalez,New England Patriots,W4,64.97187540029954
+Kayshon Boutte,New England Patriots,W4,40.42101385765507
+Quinnen Williams,New England Patriots,W4,39.685157699753105
+Chris Jones,New England Patriots,W4,48.0558015506266
+Trent McDuffie,New England Patriots,W4,36.874880366424655
+Jalen Hurts,Philadelphia Eagles,W5,54.19969561935443
+Saquon Barkley,Philadelphia Eagles,W5,48.05050096280689
+AJ Brown,Philadelphia Eagles,W5,51.26926295980057
+Quinyon Mitchell,Philadelphia Eagles,W5,54.39111520242223
+Zack Baun,Philadelphia Eagles,W5,42.12063197076634
+Josh Allen,Buffalo Bills,W5,57.9546850709238
+James Cook,Buffalo Bills,W5,51.78655242462793
+Dalton Kincaid,Buffalo Bills,W5,65.38461225605943
+Matt Milano,Buffalo Bills,W5,66.39126369196526
+Greg Rousseau,Buffalo Bills,W5,70.62107731276215
+Joe Burrow,Cincinnati Bengals,W5,42.883349736889144
+JaMarr Chase,Cincinnati Bengals,W5,40.14735677623016
+Tee Higgins,Cincinnati Bengals,W5,36.76355265504152
+Trey Hendrickson,Cincinnati Bengals,W5,36.370710396017834
+Evan McPherson,Cincinnati Bengals,W5,48.18724338782135
+Daniel Jones,Indianapolis Colts,W5,57.70102170753881
+Jonathan Taylor,Indianapolis Colts,W5,72.70562380433356
+Michael Pittman Jr,Indianapolis Colts,W5,73.57510586216264
+Quenton Nelson,Indianapolis Colts,W5,73.01389099876523
+Laiatu Latu,Indianapolis Colts,W5,66.10784782890363
+Patrick Mahomes,Kansas City Chiefs,W5,62.23492055861465
+Travis Kelce,Kansas City Chiefs,W5,62.841728578382444
+Xavier Worthy,Kansas City Chiefs,W5,61.96524078566223
+Caleb Williams,Kansas City Chiefs,W5,62.06698969454517
+DJ Moore,Kansas City Chiefs,W5,56.82892188491826
+Keenan Allen,Chicago Bears,W5,57.62162151520489
+Rome Odunze,Chicago Bears,W5,61.36545618724338
+Jaylon Johnson,Chicago Bears,W5,59.29073657972566
+Baker Mayfield,Chicago Bears,W5,66.80470762261272
+Mike Evans,Chicago Bears,W5,62.32963544666227
+Chris Godwin,Tampa Bay Buccaneers,W5,46.813575236113806
+Antoine Winfield Jr,Tampa Bay Buccaneers,W5,32.589404271124394
+Vita Vea,Tampa Bay Buccaneers,W5,44.715089664249845
+Sam Darnold,Tampa Bay Buccaneers,W5,50.45119256237628
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W5,53.70443275003757
+Tariq Woolen,Seattle Seahawks,W5,63.458618149658875
+Kenneth Walker III,Seattle Seahawks,W5,62.18149639822194
+Devon Witherspoon,Seattle Seahawks,W5,57.38143534960571
+Dak Prescott,Seattle Seahawks,W5,57.68093365130092
+CeeDee Lamb,Seattle Seahawks,W5,63.64446645258858
+Javonte Williams,Dallas Cowboys,W5,72.84365289032601
+George Pickens,Dallas Cowboys,W5,76.11946680534
+Drake Maye,Dallas Cowboys,W5,74.15323760969935
+TreVeyon Henderson,Dallas Cowboys,W5,58.06733591634245
+Stefon Diggs,Dallas Cowboys,W5,67.191398508082
+Christian Gonzalez,New England Patriots,W5,86.0805549578701
+Kayshon Boutte,New England Patriots,W5,69.16703899986622
+Quinnen Williams,New England Patriots,W5,79.82124269275072
+Chris Jones,New England Patriots,W5,36.08055495787012
+Trent McDuffie,New England Patriots,W5,67.89150609750351
+Jalen Hurts,Philadelphia Eagles,W6,19.82169287337983
+Saquon Barkley,Philadelphia Eagles,W6,17.867128831730895
+AJ Brown,Philadelphia Eagles,W6,13.149064329902231
+Quinyon Mitchell,Philadelphia Eagles,W6,5.21925364878139
+Zack Baun,Philadelphia Eagles,W6,19.892001983206733
+Josh Allen,Buffalo Bills,W6,34.56744506765307
+James Cook,Buffalo Bills,W6,32.466344572645184
+Dalton Kincaid,Buffalo Bills,W6,42.037849254686705
+Matt Milano,Buffalo Bills,W6,38.5697592009951
+Greg Rousseau,Buffalo Bills,W6,42.97579204843652
+Joe Burrow,Cincinnati Bengals,W6,27.374414689718428
+JaMarr Chase,Cincinnati Bengals,W6,40.92866640754412
+Tee Higgins,Cincinnati Bengals,W6,47.818636562521355
+Trey Hendrickson,Cincinnati Bengals,W6,37.2440803364564
+Evan McPherson,Cincinnati Bengals,W6,42.451331652274256
+Daniel Jones,Indianapolis Colts,W6,54.710905881807705
+Jonathan Taylor,Indianapolis Colts,W6,63.59034230780773
+Michael Pittman Jr,Indianapolis Colts,W6,53.746175274001715
+Quenton Nelson,Indianapolis Colts,W6,61.46286843899715
+Laiatu Latu,Indianapolis Colts,W6,56.635116601522924
+Patrick Mahomes,Kansas City Chiefs,W6,23.25952489644234
+Travis Kelce,Kansas City Chiefs,W6,15.42664387633303
+Xavier Worthy,Kansas City Chiefs,W6,38.67668351125633
+Caleb Williams,Kansas City Chiefs,W6,32.635802775341986
+DJ Moore,Kansas City Chiefs,W6,25.884383473183117
+Keenan Allen,Chicago Bears,W6,42.56889126905524
+Rome Odunze,Chicago Bears,W6,44.66604287423074
+Jaylon Johnson,Chicago Bears,W6,47.716107486521494
+Baker Mayfield,Chicago Bears,W6,53.25453803607732
+Mike Evans,Chicago Bears,W6,48.819726718751134
+Chris Godwin,Tampa Bay Buccaneers,W6,45.688060066263134
+Antoine Winfield Jr,Tampa Bay Buccaneers,W6,54.51101478809624
+Vita Vea,Tampa Bay Buccaneers,W6,47.35516613230452
+Sam Darnold,Tampa Bay Buccaneers,W6,63.73482938936408
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W6,57.82935903702876
+Tariq Woolen,Seattle Seahawks,W6,37.4108642192114
+Kenneth Walker III,Seattle Seahawks,W6,41.22463716323502
+Devon Witherspoon,Seattle Seahawks,W6,39.427137520492444
+Dak Prescott,Seattle Seahawks,W6,41.082228353786874
+CeeDee Lamb,Seattle Seahawks,W6,49.490917989382254
+Javonte Williams,Dallas Cowboys,W6,44.03057545358564
+George Pickens,Dallas Cowboys,W6,40.439924397199356
+Drake Maye,Dallas Cowboys,W6,48.569551387048485
+TreVeyon Henderson,Dallas Cowboys,W6,47.160154034320946
+Stefon Diggs,Dallas Cowboys,W6,35.83638492200568
+Christian Gonzalez,New England Patriots,W6,39.92472625049633
+Kayshon Boutte,New England Patriots,W6,78.3789514231712
+Quinnen Williams,New England Patriots,W6,49.38687426862345
+Chris Jones,New England Patriots,W6,29.103246048540477
+Trent McDuffie,New England Patriots,W6,50.28195638929631
+Jalen Hurts,Philadelphia Eagles,W7,61.149378411373064
+Saquon Barkley,Philadelphia Eagles,W7,55.75668856745331
+AJ Brown,Philadelphia Eagles,W7,78.98079120648286
+Quinyon Mitchell,Philadelphia Eagles,W7,61.29456954593306
+Zack Baun,Philadelphia Eagles,W7,62.83296381552242
+Josh Allen,Buffalo Bills,W7,50.852336870860256
+James Cook,Buffalo Bills,W7,58.75958693538915
+Dalton Kincaid,Buffalo Bills,W7,59.17923385308403
+Matt Milano,Buffalo Bills,W7,55.48165588776378
+Greg Rousseau,Buffalo Bills,W7,58.43799542533375
+Joe Burrow,Cincinnati Bengals,W7,58.328787119360705
+JaMarr Chase,Cincinnati Bengals,W7,74.1840509220838
+Tee Higgins,Cincinnati Bengals,W7,72.11367755712646
+Trey Hendrickson,Cincinnati Bengals,W7,65.28196726649091
+Evan McPherson,Cincinnati Bengals,W7,74.17311128495342
+Daniel Jones,Indianapolis Colts,W7,49.46880876410985
+Jonathan Taylor,Indianapolis Colts,W7,66.47538690853759
+Michael Pittman Jr,Indianapolis Colts,W7,58.514779279904985
+Quenton Nelson,Indianapolis Colts,W7,67.69573879047849
+Laiatu Latu,Indianapolis Colts,W7,55.96699243229813
+Patrick Mahomes,Kansas City Chiefs,W7,62.35561104274991
+Travis Kelce,Kansas City Chiefs,W7,61.55265274529725
+Xavier Worthy,Kansas City Chiefs,W7,42.300983091293546
+Caleb Williams,Kansas City Chiefs,W7,52.71302656114753
+DJ Moore,Kansas City Chiefs,W7,56.06155845866533
+Keenan Allen,Chicago Bears,W7,48.71429844620405
+Rome Odunze,Chicago Bears,W7,51.588020674635445
+Jaylon Johnson,Chicago Bears,W7,55.544084445646334
+Baker Mayfield,Chicago Bears,W7,44.279864639513185
+Mike Evans,Chicago Bears,W7,52.160503725311166
+Chris Godwin,Tampa Bay Buccaneers,W7,32.381031562481866
+Antoine Winfield Jr,Tampa Bay Buccaneers,W7,39.44857168457479
+Vita Vea,Tampa Bay Buccaneers,W7,66.31000238251511
+Sam Darnold,Tampa Bay Buccaneers,W7,37.139348930045045
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W7,46.81708066500906
+Tariq Woolen,Seattle Seahawks,W7,36.89381075684094
+Kenneth Walker III,Seattle Seahawks,W7,16.25055271152868
+Devon Witherspoon,Seattle Seahawks,W7,38.01019002294013
+Dak Prescott,Seattle Seahawks,W7,51.560546412658304
+CeeDee Lamb,Seattle Seahawks,W7,51.588813971628134
+Javonte Williams,Dallas Cowboys,W7,72.43768931212746
+George Pickens,Dallas Cowboys,W7,67.35471611632147
+Drake Maye,Dallas Cowboys,W7,81.6853340935315
+TreVeyon Henderson,Dallas Cowboys,W7,51.62173568256674
+Stefon Diggs,Dallas Cowboys,W7,80.46080239481417
+Christian Gonzalez,New England Patriots,W7,78.45003367734934
+Kayshon Boutte,New England Patriots,W7,65.57535917949032
+Quinnen Williams,New England Patriots,W7,55.58816974588058
+Chris Jones,New England Patriots,W7,79.25469043516324
+Trent McDuffie,New England Patriots,W7,63.88807857791885
+Jalen Hurts,Philadelphia Eagles,W8,30.742288269373145
+Saquon Barkley,Philadelphia Eagles,W8,46.141538086101335
+AJ Brown,Philadelphia Eagles,W8,26.4217952476892
+Quinyon Mitchell,Philadelphia Eagles,W8,29.33870106834933
+Zack Baun,Philadelphia Eagles,W8,15.95579369344178
+Josh Allen,Buffalo Bills,W8,29.246222788068366
+James Cook,Buffalo Bills,W8,53.07675288402322
+Dalton Kincaid,Buffalo Bills,W8,34.10908533229178
+Matt Milano,Buffalo Bills,W8,40.31769416210247
+Greg Rousseau,Buffalo Bills,W8,41.53313936537202
+Joe Burrow,Cincinnati Bengals,W8,9.219106684465219
+JaMarr Chase,Cincinnati Bengals,W8,10.45370013016086
+Tee Higgins,Cincinnati Bengals,W8,26.73208701352341
+Trey Hendrickson,Cincinnati Bengals,W8,15.631166559312355
+Evan McPherson,Cincinnati Bengals,W8,31.36218173785334
+Daniel Jones,Indianapolis Colts,W8,59.7847286257838
+Jonathan Taylor,Indianapolis Colts,W8,52.66392574636541
+Michael Pittman Jr,Indianapolis Colts,W8,69.39818457789863
+Quenton Nelson,Indianapolis Colts,W8,73.26620332257451
+Laiatu Latu,Indianapolis Colts,W8,53.444201189504156
+Patrick Mahomes,Kansas City Chiefs,W8,56.48130388176938
+Travis Kelce,Kansas City Chiefs,W8,82.87265948192402
+Xavier Worthy,Kansas City Chiefs,W8,56.93223545165159
+Caleb Williams,Kansas City Chiefs,W8,44.772266909467696
+DJ Moore,Kansas City Chiefs,W8,36.35664000583819
+Keenan Allen,Chicago Bears,W8,35.51493195441952
+Rome Odunze,Chicago Bears,W8,30.514107885299147
+Jaylon Johnson,Chicago Bears,W8,29.235366597375823
+Baker Mayfield,Chicago Bears,W8,46.16801740329046
+Mike Evans,Chicago Bears,W8,18.466935098286896
+Chris Godwin,Tampa Bay Buccaneers,W8,42.383741870809644
+Antoine Winfield Jr,Tampa Bay Buccaneers,W8,26.825640713860295
+Vita Vea,Tampa Bay Buccaneers,W8,40.67132142121619
+Sam Darnold,Tampa Bay Buccaneers,W8,48.5905872174129
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W8,56.1166971080234
+Tariq Woolen,Seattle Seahawks,W8,53.119633957829365
+Kenneth Walker III,Seattle Seahawks,W8,55.720001676059006
+Devon Witherspoon,Seattle Seahawks,W8,53.30989052809429
+Dak Prescott,Seattle Seahawks,W8,45.72357827427886
+CeeDee Lamb,Seattle Seahawks,W8,54.10177668573849
+Javonte Williams,Dallas Cowboys,W8,75.33724192476159
+George Pickens,Dallas Cowboys,W8,58.805967855381084
+Drake Maye,Dallas Cowboys,W8,71.80745818786008
+TreVeyon Henderson,Dallas Cowboys,W8,73.18853790722783
+Stefon Diggs,Dallas Cowboys,W8,75.93953061695149
+Christian Gonzalez,New England Patriots,W8,75.75777401345114
+Kayshon Boutte,New England Patriots,W8,88.89310886120106
+Quinnen Williams,New England Patriots,W8,59.48362118440741
+Chris Jones,New England Patriots,W8,62.265469329499965
+Trent McDuffie,New England Patriots,W8,61.19581891402065
+Jalen Hurts,Philadelphia Eagles,W9,48.45777809135199
+Saquon Barkley,Philadelphia Eagles,W9,52.26178419586528
+AJ Brown,Philadelphia Eagles,W9,50.10444408313299
+Quinyon Mitchell,Philadelphia Eagles,W9,56.1555269691309
+Zack Baun,Philadelphia Eagles,W9,55.98943001649685
+Josh Allen,Buffalo Bills,W9,36.13065129298457
+James Cook,Buffalo Bills,W9,64.01282692150532
+Dalton Kincaid,Buffalo Bills,W9,79.85627255422948
+Matt Milano,Buffalo Bills,W9,51.09090660520948
+Greg Rousseau,Buffalo Bills,W9,65.18803872801728
+Joe Burrow,Cincinnati Bengals,W9,52.15524420026522
+JaMarr Chase,Cincinnati Bengals,W9,32.13771759815057
+Tee Higgins,Cincinnati Bengals,W9,52.66130676149205
+Trey Hendrickson,Cincinnati Bengals,W9,43.8384764163033
+Evan McPherson,Cincinnati Bengals,W9,50.89316872434351
+Daniel Jones,Indianapolis Colts,W9,36.593237564101344
+Jonathan Taylor,Indianapolis Colts,W9,46.96696471853763
+Michael Pittman Jr,Indianapolis Colts,W9,61.894241317356375
+Quenton Nelson,Indianapolis Colts,W9,60.52140932611084
+Laiatu Latu,Indianapolis Colts,W9,67.77329594226508
+Patrick Mahomes,Kansas City Chiefs,W9,51.52651252478676
+Travis Kelce,Kansas City Chiefs,W9,68.71296152647855
+Xavier Worthy,Kansas City Chiefs,W9,59.21125743343175
+Caleb Williams,Kansas City Chiefs,W9,76.41338820874122
+DJ Moore,Kansas City Chiefs,W9,83.2580767417792
+Keenan Allen,Chicago Bears,W9,57.99828660019942
+Rome Odunze,Chicago Bears,W9,40.59096592717644
+Jaylon Johnson,Chicago Bears,W9,30.557591573849525
+Baker Mayfield,Chicago Bears,W9,51.078540371464555
+Mike Evans,Chicago Bears,W9,45.20748472579632
+Chris Godwin,Tampa Bay Buccaneers,W9,51.65071155084918
+Antoine Winfield Jr,Tampa Bay Buccaneers,W9,52.20976100324485
+Vita Vea,Tampa Bay Buccaneers,W9,53.21314353472225
+Sam Darnold,Tampa Bay Buccaneers,W9,79.07119170118517
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W9,76.08334314544211
+Tariq Woolen,Seattle Seahawks,W9,66.74867658357105
+Kenneth Walker III,Seattle Seahawks,W9,85.43479768198883
+Devon Witherspoon,Seattle Seahawks,W9,63.16669885991467
+Dak Prescott,Seattle Seahawks,W9,62.02445747251522
+CeeDee Lamb,Seattle Seahawks,W9,53.233802564240385
+Javonte Williams,Dallas Cowboys,W9,40.667576491385205
+George Pickens,Dallas Cowboys,W9,28.343107686063412
+Drake Maye,Dallas Cowboys,W9,54.80147484081811
+TreVeyon Henderson,Dallas Cowboys,W9,42.682634196322184
+Stefon Diggs,Dallas Cowboys,W9,48.33665745934188
+Christian Gonzalez,New England Patriots,W9,64.45334847700313
+Kayshon Boutte,New England Patriots,W9,55.56680436305763
+Quinnen Williams,New England Patriots,W9,70.77012364998966
+Chris Jones,New England Patriots,W9,50.961043793051964
+Trent McDuffie,New England Patriots,W9,49.89139337757264
+Jalen Hurts,Philadelphia Eagles,W10,69.89742283854662
+Saquon Barkley,Philadelphia Eagles,W10,79.77213638482208
+AJ Brown,Philadelphia Eagles,W10,61.53453157483477
+Quinyon Mitchell,Philadelphia Eagles,W10,77.34351026964059
+Zack Baun,Philadelphia Eagles,W10,81.63546280033832
+Josh Allen,Buffalo Bills,W10,54.336383447981234
+James Cook,Buffalo Bills,W10,52.010171272013665
+Dalton Kincaid,Buffalo Bills,W10,51.70348927360192
+Matt Milano,Buffalo Bills,W10,32.61246081742774
+Greg Rousseau,Buffalo Bills,W10,62.51678511575534
+Joe Burrow,Cincinnati Bengals,W10,27.393290623283562
+JaMarr Chase,Cincinnati Bengals,W10,26.958490338454148
+Tee Higgins,Cincinnati Bengals,W10,32.99298662143411
+Trey Hendrickson,Cincinnati Bengals,W10,28.61990786966161
+Evan McPherson,Cincinnati Bengals,W10,40.98571911208958
+Daniel Jones,Indianapolis Colts,W10,81.06122464800939
+Jonathan Taylor,Indianapolis Colts,W10,91.34672063694626
+Michael Pittman Jr,Indianapolis Colts,W10,65.04987050376057
+Quenton Nelson,Indianapolis Colts,W10,65.17231342334341
+Laiatu Latu,Indianapolis Colts,W10,68.75729280767757
+Patrick Mahomes,Kansas City Chiefs,W10,52.8670769253185
+Travis Kelce,Kansas City Chiefs,W10,60.220524950868096
+Xavier Worthy,Kansas City Chiefs,W10,50.71882085782127
+Caleb Williams,Kansas City Chiefs,W10,67.53396326439209
+DJ Moore,Kansas City Chiefs,W10,48.33749962974473
+Keenan Allen,Chicago Bears,W10,85.06209714186446
+Rome Odunze,Chicago Bears,W10,92.0599822873708
+Jaylon Johnson,Chicago Bears,W10,88.43573369416903
+Baker Mayfield,Chicago Bears,W10,77.12650844024357
+Mike Evans,Chicago Bears,W10,81.01898857907673
+Chris Godwin,Tampa Bay Buccaneers,W10,69.54971216434775
+Antoine Winfield Jr,Tampa Bay Buccaneers,W10,73.62027530968143
+Vita Vea,Tampa Bay Buccaneers,W10,90.64232259186947
+Sam Darnold,Tampa Bay Buccaneers,W10,71.02011946426148
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W10,80.85169057242962
+Tariq Woolen,Seattle Seahawks,W10,53.670343407150064
+Kenneth Walker III,Seattle Seahawks,W10,56.48526498952228
+Devon Witherspoon,Seattle Seahawks,W10,73.77830665446604
+Dak Prescott,Seattle Seahawks,W10,55.47654606673621
+CeeDee Lamb,Seattle Seahawks,W10,54.209280384510315
+Javonte Williams,Dallas Cowboys,W10,55.01883872472602
+George Pickens,Dallas Cowboys,W10,51.0432467237923
+Drake Maye,Dallas Cowboys,W10,66.36752111063444
+TreVeyon Henderson,Dallas Cowboys,W10,67.06719077718623
+Stefon Diggs,Dallas Cowboys,W10,55.24470720021767
+Christian Gonzalez,New England Patriots,W10,66.86522808776667
+Kayshon Boutte,New England Patriots,W10,63.48675206420716
+Quinnen Williams,New England Patriots,W10,55.11355032166461
+Chris Jones,New England Patriots,W10,53.372923403815484
+Trent McDuffie,New England Patriots,W10,52.30327298833617
+Jalen Hurts,Philadelphia Eagles,W11,22.917150671298806
+Saquon Barkley,Philadelphia Eagles,W11,52.32611628401907
+AJ Brown,Philadelphia Eagles,W11,30.94995544408379
+Quinyon Mitchell,Philadelphia Eagles,W11,53.33735399867218
+Zack Baun,Philadelphia Eagles,W11,49.008884404072674
+Josh Allen,Buffalo Bills,W11,47.86264356616771
+James Cook,Buffalo Bills,W11,64.90504834253892
+Dalton Kincaid,Buffalo Bills,W11,43.49391858346821
+Matt Milano,Buffalo Bills,W11,47.22142919063695
+Greg Rousseau,Buffalo Bills,W11,72.34282676931346
+Joe Burrow,Cincinnati Bengals,W11,44.09282112832349
+JaMarr Chase,Cincinnati Bengals,W11,37.42014655093537
+Tee Higgins,Cincinnati Bengals,W11,53.792895934358
+Trey Hendrickson,Cincinnati Bengals,W11,47.873536120032924
+Evan McPherson,Cincinnati Bengals,W11,62.596384697087686
+Daniel Jones,Indianapolis Colts,W11,45.07521848423993
+Jonathan Taylor,Indianapolis Colts,W11,51.30327274073739
+Michael Pittman Jr,Indianapolis Colts,W11,53.57305031974125
+Quenton Nelson,Indianapolis Colts,W11,52.518924425127075
+Laiatu Latu,Indianapolis Colts,W11,50.64444610567755
+Patrick Mahomes,Kansas City Chiefs,W11,54.502627671964035
+Travis Kelce,Kansas City Chiefs,W11,59.35087059568965
+Xavier Worthy,Kansas City Chiefs,W11,43.7914428586276
+Caleb Williams,Kansas City Chiefs,W11,63.90947503237592
+DJ Moore,Kansas City Chiefs,W11,35.583105122017336
+Keenan Allen,Chicago Bears,W11,60.287574965607035
+Rome Odunze,Chicago Bears,W11,56.67332217897973
+Jaylon Johnson,Chicago Bears,W11,67.23958398073526
+Baker Mayfield,Chicago Bears,W11,88.27719640763885
+Mike Evans,Chicago Bears,W11,55.36650176390735
+Chris Godwin,Tampa Bay Buccaneers,W11,32.12607569805928
+Antoine Winfield Jr,Tampa Bay Buccaneers,W11,8.73035036783888
+Vita Vea,Tampa Bay Buccaneers,W11,21.466845093848782
+Sam Darnold,Tampa Bay Buccaneers,W11,27.10654569937821
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W11,28.25810622251308
+Tariq Woolen,Seattle Seahawks,W11,77.15799579692177
+Kenneth Walker III,Seattle Seahawks,W11,65.85405112387996
+Devon Witherspoon,Seattle Seahawks,W11,60.94305395421635
+Dak Prescott,Seattle Seahawks,W11,73.62284622208632
+CeeDee Lamb,Seattle Seahawks,W11,66.72167477488878
+Javonte Williams,Dallas Cowboys,W11,40.560751413970294
+George Pickens,Dallas Cowboys,W11,52.67035554493711
+Drake Maye,Dallas Cowboys,W11,58.86526485860419
+TreVeyon Henderson,Dallas Cowboys,W11,59.72803075639351
+Stefon Diggs,Dallas Cowboys,W11,40.14428145092496
+Christian Gonzalez,New England Patriots,W11,81.14174237403088
+Kayshon Boutte,New England Patriots,W11,77.76326635047138
+Quinnen Williams,New England Patriots,W11,77.53297211178264
+Chris Jones,New England Patriots,W11,78.03947949110741
+Trent McDuffie,New England Patriots,W11,66.57978727460039
+Jalen Hurts,Philadelphia Eagles,W12,28.676464032463258
+Saquon Barkley,Philadelphia Eagles,W12,27.946580317980704
+AJ Brown,Philadelphia Eagles,W12,32.982079484963954
+Quinyon Mitchell,Philadelphia Eagles,W12,33.54898440809844
+Zack Baun,Philadelphia Eagles,W12,27.87227305446656
+Josh Allen,Buffalo Bills,W12,60.53459672749854
+James Cook,Buffalo Bills,W12,54.167723780515544
+Dalton Kincaid,Buffalo Bills,W12,64.52916390866474
+Matt Milano,Buffalo Bills,W12,56.086507123771874
+Greg Rousseau,Buffalo Bills,W12,40.332850686593616
+Joe Burrow,Cincinnati Bengals,W12,57.70413132259286
+JaMarr Chase,Cincinnati Bengals,W12,46.76693427354466
+Tee Higgins,Cincinnati Bengals,W12,55.93520043182455
+Trey Hendrickson,Cincinnati Bengals,W12,53.94509236307667
+Evan McPherson,Cincinnati Bengals,W12,73.26456354017293
+Daniel Jones,Indianapolis Colts,W12,44.67852535020787
+Jonathan Taylor,Indianapolis Colts,W12,42.4672403201491
+Michael Pittman Jr,Indianapolis Colts,W12,54.142562744294594
+Quenton Nelson,Indianapolis Colts,W12,52.80598272104963
+Laiatu Latu,Indianapolis Colts,W12,55.51316600136893
+Patrick Mahomes,Kansas City Chiefs,W12,57.18617351748877
+Travis Kelce,Kansas City Chiefs,W12,59.98579392740759
+Xavier Worthy,Kansas City Chiefs,W12,67.39532050071018
+Caleb Williams,Kansas City Chiefs,W12,52.53567474714966
+DJ Moore,Kansas City Chiefs,W12,56.183954637899404
+Keenan Allen,Chicago Bears,W12,46.22335814000633
+Rome Odunze,Chicago Bears,W12,40.07782032033095
+Jaylon Johnson,Chicago Bears,W12,46.296428519657056
+Baker Mayfield,Chicago Bears,W12,39.918578700891544
+Mike Evans,Chicago Bears,W12,41.056261037287555
+Chris Godwin,Tampa Bay Buccaneers,W12,36.27462708556854
+Antoine Winfield Jr,Tampa Bay Buccaneers,W12,6.947249967239064
+Vita Vea,Tampa Bay Buccaneers,W12,7.834004435439586
+Sam Darnold,Tampa Bay Buccaneers,W12,31.42753282881106
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W12,45.39097542259658
+Tariq Woolen,Seattle Seahawks,W12,78.80229532438129
+Kenneth Walker III,Seattle Seahawks,W12,76.32420558164175
+Devon Witherspoon,Seattle Seahawks,W12,75.86823770496781
+Dak Prescott,Seattle Seahawks,W12,79.14569773445389
+CeeDee Lamb,Seattle Seahawks,W12,67.981034184842
+Javonte Williams,Dallas Cowboys,W12,50.46505572402245
+George Pickens,Dallas Cowboys,W12,55.83682243036846
+Drake Maye,Dallas Cowboys,W12,53.82339123888404
+TreVeyon Henderson,Dallas Cowboys,W12,50.28007005633502
+Stefon Diggs,Dallas Cowboys,W12,77.07725901052525
+Christian Gonzalez,New England Patriots,W12,45.82456684003717
+Kayshon Boutte,New England Patriots,W12,42.165526959043774
+Quinnen Williams,New England Patriots,W12,40.8953978715015
+Chris Jones,New England Patriots,W12,32.051698298652106
+Trent McDuffie,New England Patriots,W12,30.982047883172783
+Jalen Hurts,Philadelphia Eagles,W13,48.155670689548884
+Saquon Barkley,Philadelphia Eagles,W13,49.94251816232931
+AJ Brown,Philadelphia Eagles,W13,50.41447030741391
+Quinyon Mitchell,Philadelphia Eagles,W13,57.91468993909463
+Zack Baun,Philadelphia Eagles,W13,51.365526715505965
+Josh Allen,Buffalo Bills,W13,36.129256507957024
+James Cook,Buffalo Bills,W13,48.18271883913238
+Dalton Kincaid,Buffalo Bills,W13,38.18981437479606
+Matt Milano,Buffalo Bills,W13,71.55683976640164
+Greg Rousseau,Buffalo Bills,W13,43.04205550340052
+Joe Burrow,Cincinnati Bengals,W13,57.916042212018894
+JaMarr Chase,Cincinnati Bengals,W13,44.86909001615984
+Tee Higgins,Cincinnati Bengals,W13,44.82654071900689
+Trey Hendrickson,Cincinnati Bengals,W13,45.56398692789702
+Evan McPherson,Cincinnati Bengals,W13,66.949835286525
+Daniel Jones,Indianapolis Colts,W13,42.30388263088784
+Jonathan Taylor,Indianapolis Colts,W13,78.6075458935217
+Michael Pittman Jr,Indianapolis Colts,W13,65.27420542081194
+Quenton Nelson,Indianapolis Colts,W13,55.489610315708774
+Laiatu Latu,Indianapolis Colts,W13,57.26940356954296
+Patrick Mahomes,Kansas City Chiefs,W13,28.929713815409027
+Travis Kelce,Kansas City Chiefs,W13,47.46368472815186
+Xavier Worthy,Kansas City Chiefs,W13,41.50018781620851
+Caleb Williams,Kansas City Chiefs,W13,31.50452420477361
+DJ Moore,Kansas City Chiefs,W13,33.768940299741836
+Keenan Allen,Chicago Bears,W13,65.15015924216674
+Rome Odunze,Chicago Bears,W13,67.50173107930017
+Jaylon Johnson,Chicago Bears,W13,75.19590303933917
+Baker Mayfield,Chicago Bears,W13,65.03108889784976
+Mike Evans,Chicago Bears,W13,52.66715330754348
+Chris Godwin,Tampa Bay Buccaneers,W13,52.915807782719824
+Antoine Winfield Jr,Tampa Bay Buccaneers,W13,58.598058074656876
+Vita Vea,Tampa Bay Buccaneers,W13,54.95836824388357
+Sam Darnold,Tampa Bay Buccaneers,W13,42.30862810503852
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W13,50.14065888832578
+Tariq Woolen,Seattle Seahawks,W13,41.94182956871693
+Kenneth Walker III,Seattle Seahawks,W13,42.39613374384155
+Devon Witherspoon,Seattle Seahawks,W13,42.39613374384155
+Dak Prescott,Seattle Seahawks,W13,58.4511479095758
+CeeDee Lamb,Seattle Seahawks,W13,37.897161883953274
+Javonte Williams,Dallas Cowboys,W13,64.64327252730602
+George Pickens,Dallas Cowboys,W13,55.81543551514726
+Drake Maye,Dallas Cowboys,W13,57.464566635815544
+TreVeyon Henderson,Dallas Cowboys,W13,66.40836292722248
+Stefon Diggs,Dallas Cowboys,W13,65.93279074331551
+Christian Gonzalez,New England Patriots,W13,84.73858779980247
+Kayshon Boutte,New England Patriots,W13,38.719329026286744
+Quinnen Williams,New England Patriots,W13,49.5852118585456
+Chris Jones,New England Patriots,W13,58.36383329831163
+Trent McDuffie,New England Patriots,W13,35.3911779167072
+Jalen Hurts,Philadelphia Eagles,W14,19.2310615560881
+Saquon Barkley,Philadelphia Eagles,W14,18.3843673024384
+AJ Brown,Philadelphia Eagles,W14,32.95370966973154
+Quinyon Mitchell,Philadelphia Eagles,W14,20.52178035208997
+Zack Baun,Philadelphia Eagles,W14,27.213281918802096
+Josh Allen,Buffalo Bills,W14,50.86471047962627
+James Cook,Buffalo Bills,W14,39.81400825564675
+Dalton Kincaid,Buffalo Bills,W14,63.728864650190474
+Matt Milano,Buffalo Bills,W14,49.832388067417696
+Greg Rousseau,Buffalo Bills,W14,51.08379900083814
+Joe Burrow,Cincinnati Bengals,W14,12.860697670755464
+JaMarr Chase,Cincinnati Bengals,W14,44.53472658142219
+Tee Higgins,Cincinnati Bengals,W14,15.70054701143592
+Trey Hendrickson,Cincinnati Bengals,W14,21.340214441506035
+Evan McPherson,Cincinnati Bengals,W14,59.5656384658964
+Daniel Jones,Indianapolis Colts,W14,19.22678414627228
+Jonathan Taylor,Indianapolis Colts,W14,18.440948443586908
+Michael Pittman Jr,Indianapolis Colts,W14,25.261582860345488
+Quenton Nelson,Indianapolis Colts,W14,23.87002126768429
+Laiatu Latu,Indianapolis Colts,W14,25.307329713476033
+Patrick Mahomes,Kansas City Chiefs,W14,24.9847490374966
+Travis Kelce,Kansas City Chiefs,W14,26.66698286540234
+Xavier Worthy,Kansas City Chiefs,W14,47.30592916539984
+Caleb Williams,Kansas City Chiefs,W14,42.06836933168184
+DJ Moore,Kansas City Chiefs,W14,31.867527570624908
+Keenan Allen,Chicago Bears,W14,54.590319584595804
+Rome Odunze,Chicago Bears,W14,49.24834254540451
+Jaylon Johnson,Chicago Bears,W14,33.327217752253176
+Baker Mayfield,Chicago Bears,W14,48.300789349382455
+Mike Evans,Chicago Bears,W14,58.217735189694835
+Chris Godwin,Tampa Bay Buccaneers,W14,57.5943766910331
+Antoine Winfield Jr,Tampa Bay Buccaneers,W14,81.8512287973457
+Vita Vea,Tampa Bay Buccaneers,W14,55.06449602514479
+Sam Darnold,Tampa Bay Buccaneers,W14,38.84180468621166
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W14,66.24655871999167
+Tariq Woolen,Seattle Seahawks,W14,31.201845503078925
+Kenneth Walker III,Seattle Seahawks,W14,44.95592298266586
+Devon Witherspoon,Seattle Seahawks,W14,46.26694815418524
+Dak Prescott,Seattle Seahawks,W14,34.475988948009025
+CeeDee Lamb,Seattle Seahawks,W14,57.501082002662166
+Javonte Williams,Dallas Cowboys,W14,33.36488678623936
+George Pickens,Dallas Cowboys,W14,12.926359415413536
+Drake Maye,Dallas Cowboys,W14,40.72697969852302
+TreVeyon Henderson,Dallas Cowboys,W14,34.837745370325905
+Stefon Diggs,Dallas Cowboys,W14,37.744324842523525
+Christian Gonzalez,New England Patriots,W14,54.30710600826291
+Kayshon Boutte,New England Patriots,W14,50.92862998470341
+Quinnen Williams,New England Patriots,W14,31.68173161324413
+Chris Jones,New England Patriots,W14,38.359396393064465
+Trent McDuffie,New England Patriots,W14,51.740209701449245
+Jalen Hurts,Philadelphia Eagles,W15,76.83971140617726
+Saquon Barkley,Philadelphia Eagles,W15,85.78948246531671
+AJ Brown,Philadelphia Eagles,W15,80.92106170600849
+Quinyon Mitchell,Philadelphia Eagles,W15,89.49499163679722
+Zack Baun,Philadelphia Eagles,W15,82.82229987600968
+Josh Allen,Buffalo Bills,W15,36.39918304114672
+James Cook,Buffalo Bills,W15,46.64424677057596
+Dalton Kincaid,Buffalo Bills,W15,52.3700587390973
+Matt Milano,Buffalo Bills,W15,57.8240564020741
+Greg Rousseau,Buffalo Bills,W15,34.65762654791526
+Joe Burrow,Cincinnati Bengals,W15,29.656057617363615
+JaMarr Chase,Cincinnati Bengals,W15,53.06435846339568
+Tee Higgins,Cincinnati Bengals,W15,28.959048075248244
+Trey Hendrickson,Cincinnati Bengals,W15,33.6512413429615
+Evan McPherson,Cincinnati Bengals,W15,44.50939040086569
+Daniel Jones,Indianapolis Colts,W15,36.74149267077315
+Jonathan Taylor,Indianapolis Colts,W15,39.16212167327339
+Michael Pittman Jr,Indianapolis Colts,W15,41.72825621991285
+Quenton Nelson,Indianapolis Colts,W15,41.074012587060054
+Laiatu Latu,Indianapolis Colts,W15,45.79096685871785
+Patrick Mahomes,Kansas City Chiefs,W15,54.91625797620887
+Travis Kelce,Kansas City Chiefs,W15,79.91683898534578
+Xavier Worthy,Kansas City Chiefs,W15,56.39350151197391
+Caleb Williams,Kansas City Chiefs,W15,78.12578671777928
+DJ Moore,Kansas City Chiefs,W15,71.42218913348427
+Keenan Allen,Chicago Bears,W15,59.57071739482166
+Rome Odunze,Chicago Bears,W15,62.13950859233364
+Jaylon Johnson,Chicago Bears,W15,76.32546856385594
+Baker Mayfield,Chicago Bears,W15,57.57407241207514
+Mike Evans,Chicago Bears,W15,51.085001245243646
+Chris Godwin,Tampa Bay Buccaneers,W15,50.65016747332845
+Antoine Winfield Jr,Tampa Bay Buccaneers,W15,33.33649508828614
+Vita Vea,Tampa Bay Buccaneers,W15,76.03540178908315
+Sam Darnold,Tampa Bay Buccaneers,W15,56.07850884661154
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W15,69.83159689430492
+Tariq Woolen,Seattle Seahawks,W15,45.93310622662399
+Kenneth Walker III,Seattle Seahawks,W15,66.31844889542587
+Devon Witherspoon,Seattle Seahawks,W15,52.412155884831876
+Dak Prescott,Seattle Seahawks,W15,37.87697813279344
+CeeDee Lamb,Seattle Seahawks,W15,47.46203304140458
+Javonte Williams,Dallas Cowboys,W15,30.10199553184537
+George Pickens,Dallas Cowboys,W15,22.98261888952117
+Drake Maye,Dallas Cowboys,W15,31.269516933119302
+TreVeyon Henderson,Dallas Cowboys,W15,35.75736168065795
+Stefon Diggs,Dallas Cowboys,W15,22.79643181957758
+Christian Gonzalez,New England Patriots,W15,60.850452691854095
+Kayshon Boutte,New England Patriots,W15,72.16550816674398
+Quinnen Williams,New England Patriots,W15,46.15112682555916
+Chris Jones,New England Patriots,W15,60.23629506547442
+Trent McDuffie,New England Patriots,W15,46.2884975924236
+Jalen Hurts,Philadelphia Eagles,W16,55.58720525290727
+Saquon Barkley,Philadelphia Eagles,W16,55.71904662444834
+AJ Brown,Philadelphia Eagles,W16,54.7282693205686
+Quinyon Mitchell,Philadelphia Eagles,W16,58.63699389154698
+Zack Baun,Philadelphia Eagles,W16,60.23561035915779
+Josh Allen,Buffalo Bills,W16,47.21544620954468
+James Cook,Buffalo Bills,W16,56.61502200885733
+Dalton Kincaid,Buffalo Bills,W16,45.860143762974005
+Matt Milano,Buffalo Bills,W16,45.33964633869058
+Greg Rousseau,Buffalo Bills,W16,60.55016946830859
+Joe Burrow,Cincinnati Bengals,W16,52.82368097022797
+JaMarr Chase,Cincinnati Bengals,W16,43.35040283441869
+Tee Higgins,Cincinnati Bengals,W16,54.32167248182307
+Trey Hendrickson,Cincinnati Bengals,W16,39.770209502295046
+Evan McPherson,Cincinnati Bengals,W16,53.56376239171877
+Daniel Jones,Indianapolis Colts,W16,41.68092879285234
+Jonathan Taylor,Indianapolis Colts,W16,37.675990314340446
+Michael Pittman Jr,Indianapolis Colts,W16,35.78011916249543
+Quenton Nelson,Indianapolis Colts,W16,39.462415389620034
+Laiatu Latu,Indianapolis Colts,W16,40.783723123831926
+Patrick Mahomes,Kansas City Chiefs,W16,65.52604279972968
+Travis Kelce,Kansas City Chiefs,W16,76.66263945843991
+Xavier Worthy,Kansas City Chiefs,W16,28.135488901534217
+Caleb Williams,Kansas City Chiefs,W16,61.40447246629065
+DJ Moore,Kansas City Chiefs,W16,67.97087195182927
+Keenan Allen,Chicago Bears,W16,36.90108312601977
+Rome Odunze,Chicago Bears,W16,39.932876519518004
+Jaylon Johnson,Chicago Bears,W16,44.716489904949604
+Baker Mayfield,Chicago Bears,W16,47.553386586789465
+Mike Evans,Chicago Bears,W16,40.084850661819544
+Chris Godwin,Tampa Bay Buccaneers,W16,46.06582987499598
+Antoine Winfield Jr,Tampa Bay Buccaneers,W16,48.65370401234718
+Vita Vea,Tampa Bay Buccaneers,W16,27.687765023953155
+Sam Darnold,Tampa Bay Buccaneers,W16,45.817505934665306
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W16,49.06020848368704
+Tariq Woolen,Seattle Seahawks,W16,62.79530215218519
+Kenneth Walker III,Seattle Seahawks,W16,60.03861994529921
+Devon Witherspoon,Seattle Seahawks,W16,68.5042470777679
+Dak Prescott,Seattle Seahawks,W16,65.82811379221265
+CeeDee Lamb,Seattle Seahawks,W16,69.49850384322191
+Javonte Williams,Dallas Cowboys,W16,69.59701181917715
+George Pickens,Dallas Cowboys,W16,59.812456507980905
+Drake Maye,Dallas Cowboys,W16,74.82329125223434
+TreVeyon Henderson,Dallas Cowboys,W16,60.109961466596886
+Stefon Diggs,Dallas Cowboys,W16,79.82115017763398
+Christian Gonzalez,New England Patriots,W16,49.83733423597454
+Kayshon Boutte,New England Patriots,W16,46.81208750465456
+Quinnen Williams,New England Patriots,W16,50.751232126955415
+Chris Jones,New England Patriots,W16,40.45579012217807
+Trent McDuffie,New England Patriots,W16,39.38613970669874
+Jalen Hurts,Philadelphia Eagles,W17,52.67782678743386
+Saquon Barkley,Philadelphia Eagles,W17,53.764845542413674
+AJ Brown,Philadelphia Eagles,W17,47.56534732683065
+Quinyon Mitchell,Philadelphia Eagles,W17,53.042641096869566
+Zack Baun,Philadelphia Eagles,W17,64.77271681510385
+Josh Allen,Buffalo Bills,W17,48.17406389021983
+James Cook,Buffalo Bills,W17,46.39319388736443
+Dalton Kincaid,Buffalo Bills,W17,50.848380204370415
+Matt Milano,Buffalo Bills,W17,66.43596662323098
+Greg Rousseau,Buffalo Bills,W17,60.31126594174397
+Joe Burrow,Cincinnati Bengals,W17,48.82293069613106
+JaMarr Chase,Cincinnati Bengals,W17,38.44072982215714
+Tee Higgins,Cincinnati Bengals,W17,55.1260221121934
+Trey Hendrickson,Cincinnati Bengals,W17,43.322799035879996
+Evan McPherson,Cincinnati Bengals,W17,55.505987600861815
+Daniel Jones,Indianapolis Colts,W17,54.52674806625721
+Jonathan Taylor,Indianapolis Colts,W17,67.20111179799093
+Michael Pittman Jr,Indianapolis Colts,W17,57.79097020952575
+Quenton Nelson,Indianapolis Colts,W17,66.59029437636033
+Laiatu Latu,Indianapolis Colts,W17,51.592708162689654
+Patrick Mahomes,Kansas City Chiefs,W17,59.438741601642306
+Travis Kelce,Kansas City Chiefs,W17,64.63642002800108
+Xavier Worthy,Kansas City Chiefs,W17,29.831346347156078
+Caleb Williams,Kansas City Chiefs,W17,50.26952572884207
+DJ Moore,Kansas City Chiefs,W17,45.817018113438635
+Keenan Allen,Chicago Bears,W17,73.0563668212266
+Rome Odunze,Chicago Bears,W17,69.15147923035114
+Jaylon Johnson,Chicago Bears,W17,71.24038052277952
+Baker Mayfield,Chicago Bears,W17,65.3849229524862
+Mike Evans,Chicago Bears,W17,68.42112595437862
+Chris Godwin,Tampa Bay Buccaneers,W17,37.71949201817607
+Antoine Winfield Jr,Tampa Bay Buccaneers,W17,31.908843998171253
+Vita Vea,Tampa Bay Buccaneers,W17,35.572048393007535
+Sam Darnold,Tampa Bay Buccaneers,W17,34.84684121708702
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W17,50.76852586197563
+Tariq Woolen,Seattle Seahawks,W17,51.43702811703592
+Kenneth Walker III,Seattle Seahawks,W17,52.190810214441214
+Devon Witherspoon,Seattle Seahawks,W17,51.14168431292771
+Dak Prescott,Seattle Seahawks,W17,52.275216325781756
+CeeDee Lamb,Seattle Seahawks,W17,45.21649306641058
+Javonte Williams,Dallas Cowboys,W17,50.92925195561878
+George Pickens,Dallas Cowboys,W17,55.522778479658605
+Drake Maye,Dallas Cowboys,W17,65.17513813421475
+TreVeyon Henderson,Dallas Cowboys,W17,60.98800041690413
+Stefon Diggs,Dallas Cowboys,W17,52.82328128158221
+Christian Gonzalez,New England Patriots,W17,85.67881092614391
+Kayshon Boutte,New England Patriots,W17,63.17990649349891
+Quinnen Williams,New England Patriots,W17,66.31598632764013
+Chris Jones,New England Patriots,W17,58.65146630774834
+Trent McDuffie,New England Patriots,W17,57.58181589226903
+Jalen Hurts,Philadelphia Eagles,W18,44.71754799427178
+Saquon Barkley,Philadelphia Eagles,W18,35.57661938872841
+AJ Brown,Philadelphia Eagles,W18,49.913128642682295
+Quinyon Mitchell,Philadelphia Eagles,W18,60.87853131099027
+Zack Baun,Philadelphia Eagles,W18,63.134765197671044
+Josh Allen,Buffalo Bills,W18,35.11789339264718
+James Cook,Buffalo Bills,W18,60.68695662573417
+Dalton Kincaid,Buffalo Bills,W18,44.57729475128849
+Matt Milano,Buffalo Bills,W18,47.73801841346996
+Greg Rousseau,Buffalo Bills,W18,48.78727007813838
+Joe Burrow,Cincinnati Bengals,W18,39.008194197675685
+JaMarr Chase,Cincinnati Bengals,W18,30.377451976533834
+Tee Higgins,Cincinnati Bengals,W18,58.81633186156189
+Trey Hendrickson,Cincinnati Bengals,W18,61.215654293948326
+Evan McPherson,Cincinnati Bengals,W18,51.40793453034364
+Daniel Jones,Indianapolis Colts,W18,55.85059103573351
+Jonathan Taylor,Indianapolis Colts,W18,32.22036152275692
+Michael Pittman Jr,Indianapolis Colts,W18,64.40188589486182
+Quenton Nelson,Indianapolis Colts,W18,61.505412012937754
+Laiatu Latu,Indianapolis Colts,W18,57.46751318268578
+Patrick Mahomes,Kansas City Chiefs,W18,43.86294641226105
+Travis Kelce,Kansas City Chiefs,W18,68.75833902977374
+Xavier Worthy,Kansas City Chiefs,W18,51.92900653401759
+Caleb Williams,Kansas City Chiefs,W18,78.60136305188131
+DJ Moore,Kansas City Chiefs,W18,47.110785137036544
+Keenan Allen,Chicago Bears,W18,46.72919827543973
+Rome Odunze,Chicago Bears,W18,53.76513995540665
+Jaylon Johnson,Chicago Bears,W18,30.02636386831746
+Baker Mayfield,Chicago Bears,W18,35.07802963056329
+Mike Evans,Chicago Bears,W18,42.12513537260193
+Chris Godwin,Tampa Bay Buccaneers,W18,56.250374748534355
+Antoine Winfield Jr,Tampa Bay Buccaneers,W18,83.2323198063721
+Vita Vea,Tampa Bay Buccaneers,W18,74.35182502608217
+Sam Darnold,Tampa Bay Buccaneers,W18,48.67525772332866
+Jaxon Smith-Njigba,Tampa Bay Buccaneers,W18,67.67435165560615
+Tariq Woolen,Seattle Seahawks,W18,55.50803890197359
+Kenneth Walker III,Seattle Seahawks,W18,71.95638520916657
+Devon Witherspoon,Seattle Seahawks,W18,43.67527554317203
+Dak Prescott,Seattle Seahawks,W18,45.0878497940812
+CeeDee Lamb,Seattle Seahawks,W18,48.280246674580944
+Javonte Williams,Dallas Cowboys,W18,53.63506562983618
+George Pickens,Dallas Cowboys,W18,42.29975329499227
+Drake Maye,Dallas Cowboys,W18,54.21406322349952
+TreVeyon Henderson,Dallas Cowboys,W18,75.88481017129588
+Stefon Diggs,Dallas Cowboys,W18,52.728645486115525
+Christian Gonzalez,New England Patriots,W18,47.65803232939127
+Kayshon Boutte,New England Patriots,W18,61.11333502130376
+Quinnen Williams,New England Patriots,W18,35.69510111940332
+Chris Jones,New England Patriots,W18,50.9995063609121
+Trent McDuffie,New England Patriots,W18,49.92985594543277
