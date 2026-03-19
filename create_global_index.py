@@ -19,7 +19,7 @@ weeks = pd.Series(
         'W10', 'W11', 'W12', 'W13', 'W14', 'W15', 'W16', 'W17', 'W18']
 )
 teams = pd.Series(
-    ['Philadelpia Eagles', 'Buffalo Bills', 'Cincinnati Bengals',
+    ['Philadelphia Eagles', 'Buffalo Bills', 'Cincinnati Bengals',
      'Indianapolis Colts', 'Kansas City Chiefs', 'Chicago Bears',
      'Tampa Bay Buccaneers', 'Seattle Seahawks', 'Dallas Cowboys',
      'New England Patriots']
@@ -27,7 +27,7 @@ teams = pd.Series(
 
 df = pd.DataFrame({
     "player": pd.Series(np.tile(player_list['subject'], 18)),
-    "team": teams.repeat(5).reset_index(drop=True),
+    "team": np.tile(teams.repeat(5).reset_index(drop=True), 18),
     "week": weeks.repeat(len(player_list)).reset_index(drop=True),
     "global_index": pd.Series(np.zeros(len(player_list) * 18))
 })
@@ -43,14 +43,53 @@ while ind < len(argv) - 1:
     file_name = file_path.split("/")[-1]    # get just file name, not path
     data_source = file_name.split("_")[0].lower()
 
-    if data_source == "twitter":
-        df['global_index'] += local_df['local_index'] * weight
-    elif data_source == "google" or data_source == "reddit":
-        df = df.merge(local_df, left_on=['team', 'week'],
-                      right_on=['subject', 'game_id'], how='left')
-        df['global_index'] += df['local_index'] * weight
-        df = df.drop(['subject', 'game_id', 'local_index'], axis=1)
+    group_var = 'player' if data_source == "twitter" else 'team'
+
+    # Merge local index and fill nas with player's average sentiment
+    # from weeks for which we have data
+    df = df.merge(local_df, left_on=[group_var, 'week'],
+                  right_on=['subject', 'game_id'], how='left')
+    df['local_index'] = df['local_index'].fillna(
+        df.groupby(group_var)['local_index'].transform('mean')
+    )
+
+    # Add weighted local index to global index
+    df['global_index'] += df['local_index'] * weight
+
+    # Drop unnecessary columns for next iteration
+    df.drop(columns=['subject', 'game_id', 'local_index'], inplace=True)
+
+    # if data_source == "twitter":
+    #     # Merge local index and fill nas with player's average sentiment
+    #     # from weeks for which we have data
+    #     df = df.merge(local_df, left_on=['player', 'week'],
+    #                   right_on=['subject', 'game_id'], how='left')
+    #     df['local_index'] = df['local_index'].fillna(
+    #         df.groupby('player')['local_index'].transform('mean')
+    #     )
+
+    #     # Add weighted local index to global index
+    #     df['global_index'] += local_df['local_index'] * weight
+
+    #     # Drop unnecessary columns for next iteration
+    #     df.drop(columns=['subject', 'game_id', 'local_index'], inplace=True)
+    # elif data_source == "google" or data_source == "reddit":
+    #     # Merge local index and fill nas with team's average sentiment
+    #     # from weeks for which we have data
+    #     df = df.merge(local_df, left_on=['team', 'week'],
+    #                   right_on=['subject', 'game_id'], how='left')
+    #     df['local_index'] = df['local_index'].fillna(
+    #         df.groupby('team')['local_index'].transform('mean')
+    #     )
+
+    #     # Add weighted local index to global index
+    #     df['global_index'] += df['local_index'] * weight
+
+    #     df = df.drop(['subject', 'game_id', 'local_index'], axis=1)
 
     ind += 2
+
+# Normalize global index by sum of weights
+df['global_index'] = df['global_index'] / wt_sum
 
 df.to_csv('sentiment_indices/global_index.csv', index=False)
