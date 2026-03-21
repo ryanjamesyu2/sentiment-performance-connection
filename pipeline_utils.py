@@ -450,8 +450,8 @@ def calc_google_weights(df, k=5.52):
 
     Returns
     -------
-    List
-        A list containing the weights for each sentence
+    NumPy array
+        An array containing the weights for each sentence
     """
     # position of each sentence within article
     sent_idx = df.groupby("title").cumcount()
@@ -471,8 +471,8 @@ def calc_google_weights(df, k=5.52):
     # normalize within each article
     weights = raw / raw.groupby(df["title"]).transform("sum")
 
-    # return as a list
-    return weights.tolist()
+    # return as a NumPy array
+    return weights
 
 
 def retrieve_model_info(data_source):
