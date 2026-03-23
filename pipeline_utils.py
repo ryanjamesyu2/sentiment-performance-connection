@@ -471,8 +471,8 @@ def calc_google_weights(df, k=5.52):
     # normalize within each article
     weights = raw / raw.groupby(df["title"]).transform("sum")
 
-    # return as a list
-    return weights.tolist()
+    # return as a NumPy array
+    return weights
 
 
 def retrieve_model_info(data_source):
