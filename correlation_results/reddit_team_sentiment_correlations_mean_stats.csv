@@ -1,0 +1,64 @@
+alignment,metric,n,pearson_r,pearson_p,spearman_r,spearman_p,distance_cor,pearson_sig,spearman_sig
+concurrent (W vs W),total_td,290,0.2684,0.0,0.2776,0.0,0.2803,***,***
+concurrent (W vs W),interceptions,290,0.211,0.0003,0.2444,0.0,0.2451,***,***
+concurrent (W vs W),rush_td,290,0.2125,0.0003,0.2321,0.0001,0.2266,***,***
+concurrent (W vs W),total_yards,290,0.225,0.0001,0.2252,0.0001,0.2301,***,***
+concurrent (W vs W),total_fantasy_pts,290,0.2118,0.0003,0.2188,0.0002,0.2255,***,***
+concurrent (W vs W),rush_yards,290,0.2038,0.0005,0.2068,0.0004,0.2129,***,***
+concurrent (W vs W),pass_int,290,-0.174,0.0029,-0.1763,0.0026,0.1769,**,**
+concurrent (W vs W),defensive_stops,290,0.1662,0.0046,0.1641,0.0051,0.1655,**,**
+concurrent (W vs W),total_touches,290,0.1568,0.0075,0.1601,0.0063,0.1886,**,**
+concurrent (W vs W),pass_td,290,0.1449,0.0135,0.1513,0.0099,0.168,*,**
+concurrent (W vs W),passes_defended,290,0.1261,0.0318,0.1366,0.02,0.144,*,*
+concurrent (W vs W),completion_pct,290,0.1291,0.0279,0.1228,0.0366,0.147,*,*
+concurrent (W vs W),yards_per_rush,290,0.1022,0.0823,0.1227,0.0368,0.1433,,*
+concurrent (W vs W),targets,290,-0.1408,0.0164,-0.1183,0.0442,0.1441,*,*
+concurrent (W vs W),pass_yards,290,0.1162,0.0481,0.1172,0.0462,0.1406,*,*
+concurrent (W vs W),opp_defense_dvoa,290,0.0972,0.0985,0.0986,0.0939,0.1068,,
+concurrent (W vs W),sacks,290,0.0934,0.1126,0.0848,0.1497,0.121,,
+concurrent (W vs W),opp_offense_dvoa,290,-0.105,0.0742,-0.0811,0.1682,0.1337,,
+concurrent (W vs W),tackles,290,-0.0812,0.1677,-0.0708,0.2294,0.1189,,
+concurrent (W vs W),total_opps,290,0.0719,0.2224,0.0687,0.2436,0.1254,,
+concurrent (W vs W),receptions,290,-0.0688,0.2428,-0.0562,0.3399,0.1073,,
+sentiment leads (sent W → perf W+1),completion_pct,261,-0.1225,0.0481,-0.1171,0.0589,0.1428,*,
+sentiment leads (sent W → perf W+1),defensive_stops,261,0.1095,0.0775,0.1038,0.0943,0.1081,,
+sentiment leads (sent W → perf W+1),sacks,261,0.1063,0.0866,0.0946,0.1273,0.1114,,
+sentiment leads (sent W → perf W+1),total_opps,261,0.0786,0.2056,0.0918,0.1393,0.1182,,
+sentiment leads (sent W → perf W+1),opp_offense_dvoa,261,-0.0882,0.1554,-0.0838,0.1772,0.1053,,
+sentiment leads (sent W → perf W+1),targets,261,0.0973,0.117,0.0819,0.1871,0.114,,
+sentiment leads (sent W → perf W+1),pass_int,261,0.083,0.1814,0.072,0.2464,0.0925,,
+sentiment leads (sent W → perf W+1),total_yards,261,0.0543,0.382,0.0591,0.342,0.0927,,
+sentiment leads (sent W → perf W+1),total_td,261,-0.0753,0.2251,-0.0583,0.3478,0.0937,,
+sentiment leads (sent W → perf W+1),total_touches,261,0.023,0.712,0.0538,0.3863,0.1072,,
+sentiment leads (sent W → perf W+1),pass_td,261,-0.054,0.3851,-0.0509,0.4129,0.0773,,
+sentiment leads (sent W → perf W+1),yards_per_rush,261,0.0386,0.5345,0.047,0.4495,0.0728,,
+sentiment leads (sent W → perf W+1),rush_yards,261,0.0162,0.7941,0.0437,0.4818,0.096,,
+sentiment leads (sent W → perf W+1),passes_defended,261,0.039,0.5309,0.0356,0.5668,0.1187,,
+sentiment leads (sent W → perf W+1),pass_yards,261,0.0503,0.4186,0.0354,0.5688,0.0934,,
+sentiment leads (sent W → perf W+1),receptions,261,0.0429,0.4897,0.031,0.6177,0.0862,,
+sentiment leads (sent W → perf W+1),interceptions,261,0.038,0.541,0.0278,0.655,0.0751,,
+sentiment leads (sent W → perf W+1),rush_td,261,-0.0445,0.4744,-0.0252,0.6857,0.0762,,
+sentiment leads (sent W → perf W+1),total_fantasy_pts,261,-0.0081,0.8962,0.0101,0.8711,0.093,,
+sentiment leads (sent W → perf W+1),tackles,261,0.0185,0.7659,0.0092,0.8825,0.0877,,
+sentiment leads (sent W → perf W+1),opp_defense_dvoa,261,-0.0133,0.8306,-0.0086,0.8903,0.0871,,
+perf leads (perf W → sent W+1),total_opps,256,0.1692,0.0067,0.1905,0.0022,0.2175,**,**
+perf leads (perf W → sent W+1),pass_yards,256,0.1674,0.0073,0.1753,0.0049,0.1866,**,**
+perf leads (perf W → sent W+1),total_touches,256,0.162,0.0094,0.1727,0.0056,0.1917,**,**
+perf leads (perf W → sent W+1),total_yards,256,0.1596,0.0106,0.1619,0.0095,0.1726,*,**
+perf leads (perf W → sent W+1),total_fantasy_pts,256,0.142,0.023,0.1368,0.0287,0.1497,*,*
+perf leads (perf W → sent W+1),targets,256,0.1112,0.0757,0.121,0.0531,0.1375,,
+perf leads (perf W → sent W+1),receptions,256,0.1176,0.0603,0.1082,0.0841,0.1184,,
+perf leads (perf W → sent W+1),total_td,256,0.0759,0.226,0.0721,0.2501,0.1094,,
+perf leads (perf W → sent W+1),tackles,256,-0.0549,0.3821,-0.0631,0.3149,0.1179,,
+perf leads (perf W → sent W+1),pass_td,256,0.0561,0.3709,0.0604,0.3355,0.0965,,
+perf leads (perf W → sent W+1),sacks,256,0.0699,0.2652,0.0524,0.404,0.0997,,
+perf leads (perf W → sent W+1),rush_td,256,0.044,0.4835,0.0494,0.4317,0.0686,,
+perf leads (perf W → sent W+1),opp_defense_dvoa,256,0.0702,0.263,0.0478,0.446,0.093,,
+perf leads (perf W → sent W+1),opp_offense_dvoa,256,-0.0157,0.8022,-0.0451,0.4725,0.0963,,
+perf leads (perf W → sent W+1),pass_int,256,0.0005,0.9937,-0.0426,0.4978,0.0896,,
+perf leads (perf W → sent W+1),passes_defended,256,0.0326,0.6041,0.0424,0.4992,0.1075,,
+perf leads (perf W → sent W+1),rush_yards,256,0.0257,0.6825,0.042,0.5031,0.0949,,
+perf leads (perf W → sent W+1),defensive_stops,256,0.063,0.315,0.0355,0.5719,0.0859,,
+perf leads (perf W → sent W+1),interceptions,256,0.0051,0.9355,-0.0342,0.5865,0.0758,,
+perf leads (perf W → sent W+1),yards_per_rush,256,-0.0465,0.4589,-0.0244,0.698,0.0948,,
+perf leads (perf W → sent W+1),completion_pct,256,-0.0014,0.9817,-0.0119,0.8501,0.0812,,

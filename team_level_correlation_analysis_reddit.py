@@ -200,8 +200,8 @@ for label, grp in all_corrs.groupby("alignment"):
     print(grp[display_cols].head(10).to_string(index=False))
 
 # Save full results
-all_corrs.to_csv("team_sentiment_correlations_mean_stats.csv", index=False)
-print("\nFull results saved to team_sentiment_correlations_mean_stats.csv")
+all_corrs.to_csv("reddit_team_sentiment_correlations_mean_stats.csv", index=False)
+print("\nFull results saved to reddit_team_sentiment_correlations_mean_stats.csv")
 
 
 
@@ -360,5 +360,5 @@ for label, grp in all_corrs.groupby("alignment"):
     print(grp[display_cols].head(10).to_string(index=False))
 
 # Save full results
-all_corrs.to_csv("team_sentiment_correlations_running_means.csv", index=False)
-print("\nFull results saved to team_sentiment_correlations_running_means.csv")
+all_corrs.to_csv("reddit_team_sentiment_correlations_running_means.csv", index=False)
+print("\nFull results saved to reddit_team_sentiment_correlations_running_means.csv")
