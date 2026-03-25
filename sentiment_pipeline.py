@@ -58,7 +58,7 @@ if data_source == "google":
         lambda x: x['game_id'] >= bye_weeks[x['subject']], axis=1
     )
     df['game_id'] = df.apply(
-	      lambda x: x['game_id'] + 1 if x['after_bye'] else x['game_id'], axis=1
+        lambda x: x['game_id'] + 1 if x['after_bye'] else x['game_id'], axis=1
     )
 
     df['game_id'] = 'W' + df['game_id'].astype(str)
