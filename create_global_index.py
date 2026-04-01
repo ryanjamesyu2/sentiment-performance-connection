@@ -59,34 +59,6 @@ while ind < len(argv) - 1:
     # Drop unnecessary columns for next iteration
     df.drop(columns=['subject', 'game_id', 'local_index'], inplace=True)
 
-    # if data_source == "twitter":
-    #     # Merge local index and fill nas with player's average sentiment
-    #     # from weeks for which we have data
-    #     df = df.merge(local_df, left_on=['player', 'week'],
-    #                   right_on=['subject', 'game_id'], how='left')
-    #     df['local_index'] = df['local_index'].fillna(
-    #         df.groupby('player')['local_index'].transform('mean')
-    #     )
-
-    #     # Add weighted local index to global index
-    #     df['global_index'] += local_df['local_index'] * weight
-
-    #     # Drop unnecessary columns for next iteration
-    #     df.drop(columns=['subject', 'game_id', 'local_index'], inplace=True)
-    # elif data_source == "google" or data_source == "reddit":
-    #     # Merge local index and fill nas with team's average sentiment
-    #     # from weeks for which we have data
-    #     df = df.merge(local_df, left_on=['team', 'week'],
-    #                   right_on=['subject', 'game_id'], how='left')
-    #     df['local_index'] = df['local_index'].fillna(
-    #         df.groupby('team')['local_index'].transform('mean')
-    #     )
-
-    #     # Add weighted local index to global index
-    #     df['global_index'] += df['local_index'] * weight
-
-    #     df = df.drop(['subject', 'game_id', 'local_index'], axis=1)
-
     ind += 2
 
 # Normalize global index by sum of weights
