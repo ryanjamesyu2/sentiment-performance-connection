@@ -82,6 +82,9 @@ elif data_source == "twitter":
     # # Aggregate sentiment scores to player/team and week level
     # wts = df['engagement_score'].apply(lambda x: np.log(x + 1))
 
+    # SPRINT 3 - NEW PLAYERS + REMOVE KEENAN ALLEN
+    df = df[df["player"] != "Keenan Allen"]
+
     # SPRINT 2 - WEIGHT BY TIME PROXIMITY TO GAME
     df = df[["team", "player", "game_id", "text", "created_at"]]
     df['created_at'] = pd.to_datetime(df['created_at'])
@@ -139,10 +142,10 @@ else:
     wts = np.log(df['score'] + 1) / 2
 
 # Predict sentiment and create local index for data
-df = predict_sentiment(df, data_source, "sentiment_scores_sprint2.csv")
+df = predict_sentiment(df, data_source, "sentiment_scores_sprint3.csv")
 local_index = aggregate_local_index(df, wts)
 local_index = scale_local_index(local_index)
 
 # Save to CSV
-out_path = "sentiment_indices/" + data_source + "_local_index_sprint2.csv"
+out_path = "sentiment_indices/" + data_source + "_local_index_sprint3.csv"
 local_index.to_csv(out_path, index=False)
