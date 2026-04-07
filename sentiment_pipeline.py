@@ -32,7 +32,11 @@ file_name = file_path.split("/")[-1]    # get just file name, not path
 data_source = file_name.split("_")[0].lower()
 
 # Read data into data frame
-df = pd.read_csv(file_path)
+try:
+    df = pd.read_csv(file_path)
+except FileNotFoundError:
+    print(f"File {file_path} not found.")
+    exit(1)
 
 # Load the appropriate model path and function based on the data source
 # Also generate weights based on a metadata column
@@ -112,7 +116,7 @@ elif data_source == "twitter":
     df = df.drop(['created_at', 'game_start_time'],
                  axis=1)
     df = df.rename(columns={'player': 'subject'})
-else:
+elif data_source == "reddit":
     df = df[['post_title', 'depth', 'body', 'score',
              'home_team', 'away_team', 'predicted_tag']]
 
@@ -140,6 +144,8 @@ else:
     # create weights for local aggregation
     # use this formula so that weights fall in similar range as Twitter posts
     wts = np.log(df['score'] + 1) / 2
+else:
+    raise ValueError("Data source not recognized. Please check file name.")
 
 # Predict sentiment and create local index for data
 df = predict_sentiment(df, data_source, "sentiment_scores_sprint3.csv")

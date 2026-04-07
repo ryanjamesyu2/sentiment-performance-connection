@@ -13,6 +13,16 @@ import pandas as pd
 import numpy as np
 
 
+# Check that the correct number of command line arguments have been provided
+if len(argv) < 3:
+    raise Exception(
+        "Please provide at least one file path and weight as arguments."
+    )
+elif (len(argv) - 1) % 2 != 0:
+    raise Exception(
+        f"Provide an even number of arguments: {len(argv) - 1} given."
+    )
+
 player_list = pd.read_csv('sentiment_indices/player_list.csv')
 weeks = pd.Series(
     ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9',
@@ -34,6 +44,7 @@ df = pd.DataFrame({
 
 ind = 1
 wt_sum = 0
+
 while ind < len(argv) - 1:
     file_path = argv[ind]
     weight = float(argv[ind + 1])
@@ -64,4 +75,4 @@ while ind < len(argv) - 1:
 # Normalize global index by sum of weights
 df['global_index'] = df['global_index'] / wt_sum
 
-df.to_csv('sentiment_indices/global_index_final.csv', index=False)
+df.to_csv('sentiment_indices/global_index_test.csv', index=False)
