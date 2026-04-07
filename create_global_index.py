@@ -64,4 +64,4 @@ while ind < len(argv) - 1:
 # Normalize global index by sum of weights
 df['global_index'] = df['global_index'] / wt_sum
 
-df.to_csv('sentiment_indices/global_index.csv', index=False)
+df.to_csv('sentiment_indices/global_index_final.csv', index=False)
