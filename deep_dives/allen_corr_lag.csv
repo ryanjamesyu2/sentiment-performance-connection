@@ -1,7 +1,7 @@
-,Statistic,Twitter Pearson,Twitter Spearman,Twitter Distance Corr,Global Pearson,Global Spearman,Global Distance Corr
-0,Pass Attempts,-0.0034,0.1795,0.4659,0.0753,0.0682,0.3774
-1,Completions,-0.1014,0.0899,0.4223,-0.0426,-0.0342,0.3305
-2,Pass Yards,-0.12,0.0107,0.3667,-0.093,-0.1215,0.2942
-3,Pass TDs,-0.0616,0.0516,0.2999,0.2864,0.2874,0.3623
-4,INTs,0.1161,0.0885,0.3509,0.4254,0.4247,0.4376
-5,QB Rating,-0.1673,-0.0357,0.3865,-0.1577,-0.1714,0.3081
+,Statistic,Twitter Pearson,Twitter Distance Corr,Global Pearson,Global Distance Corr
+0,SL Pass Attempts,-0.0034,0.4659,0.0753,0.3774
+1,SL Completions,-0.1014,0.4223,-0.0426,0.3305
+2,SL Pass Yards,-0.12,0.3667,-0.093,0.2942
+3,SL Pass TDs,-0.0616,0.2999,0.2864,0.3623
+4,SL INTs,0.1161,0.3509,0.4254,0.4376
+5,SL QB Rating,-0.1673,0.3865,-0.1577,0.3081
