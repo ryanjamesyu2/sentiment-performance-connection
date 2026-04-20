@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from rapidfuzz import process, fuzz   # pip install rapidfuzz
+from rapidfuzz import process, fuzz
 from scipy import stats
 import warnings
 
@@ -12,9 +12,6 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 stats_df = pd.read_csv(Path('~/Downloads/nfl_running_means.csv').expanduser())
 
-# ─────────────────────────────────────────────
-# 1. LOAD & PREP TWITTER SENTIMENT
-# ─────────────────────────────────────────────
 twitter_df = pd.read_csv(
     PROJECT_ROOT / "sentiment_indices" / "twitter_local_index_sprint2.csv"
 )
@@ -23,21 +20,11 @@ twitter_df = twitter_df.rename(columns={"subject": "player_name_sentiment",
                                          "local_index": "sentiment_index"})
 twitter_df = twitter_df[["player_name_sentiment", "game_week", "sentiment_index"]]
 
-# ─────────────────────────────────────────────
-# 2. FUZZY NAME MATCHING
-#    Twitter names won't always match stats exactly
-#    e.g. "JaMarr Chase" vs "Ja'Marr Chase"
-#         "Michael Pittman Jr" vs "Michael Pittman Jr."
-# ─────────────────────────────────────────────
 stats_names = stats_df["player_name"].unique().tolist()
 twitter_names = twitter_df["player_name_sentiment"].unique().tolist()
 
 def build_name_map(twitter_names, stats_names, score_cutoff=85):
-    """
-    For each Twitter name, find the best fuzzy match in stats_names.
-    Returns a dict {twitter_name: matched_stats_name} for high-confidence matches.
-    Prints low-confidence matches for manual review.
-    """
+    """Fuzzy-match Twitter names to stats names."""
     mapping = {}
     low_confidence = []
     for name in twitter_names:
@@ -61,10 +48,6 @@ name_map = build_name_map(twitter_names, stats_names)
 twitter_df["player_name"] = twitter_df["player_name_sentiment"].map(name_map)
 twitter_df = twitter_df.dropna(subset=["player_name"])
 
-# ─────────────────────────────────────────────
-# 3. MERGE SENTIMENT → STATS AT PLAYER × WEEK
-#    No aggregation — this is the natural grain
-# ─────────────────────────────────────────────
 player_df = stats_df.merge(
     twitter_df[["player_name", "game_week", "sentiment_index"]],
     on=["player_name", "game_week"],
@@ -75,10 +58,6 @@ print(f"\nMerged dataset: {len(player_df)} player-week rows "
       f"| {player_df['player_name'].nunique()} players "
       f"| {player_df['game_week'].nunique()} weeks")
 
-# ─────────────────────────────────────────────
-# 4. POSITION GROUPS & THEIR RELEVANT METRICS
-#    Keeps correlations meaningful per role
-# ─────────────────────────────────────────────
 POSITION_CONFIG = {
     "QB": {
         "positions": ["QB"],
@@ -122,9 +101,6 @@ POSITION_CONFIG = {
     },
 }
 
-# ─────────────────────────────────────────────
-# 5. CORRELATION HELPERS
-# ─────────────────────────────────────────────
 def dcor(a, b):
     def cent_dist(v):
         d = np.abs(v[:, None] - v[None, :]).astype(float)
@@ -134,7 +110,6 @@ def dcor(a, b):
     return np.sqrt(abs((A * B).mean()) / denom) if denom > 0 else 0.0
 
 def correlate_series(xi, yi, min_n=15):
-    """Return dict of correlation stats, or None if insufficient data."""
     mask = ~(np.isnan(xi) | np.isnan(yi))
     xi, yi = xi[mask], yi[mask]
     if len(xi) < min_n:
@@ -151,26 +126,20 @@ def correlate_series(xi, yi, min_n=15):
         spearman_sig= "***" if p_s<0.001 else ("**" if p_s<0.01 else ("*" if p_s<0.05 else "")),
     )
 
-# ─────────────────────────────────────────────
-# 6. THREE-LAG MERGE
-# ─────────────────────────────────────────────
 def apply_lag(df, lag):
-    """Shift sentiment week by lag to test leading/lagging relationships."""
     out = df.copy()
-    # Create a shifted sentiment lookup
     sent_shifted = (
         twitter_df[["player_name", "game_week", "sentiment_index"]]
         .assign(game_week=lambda x: x["game_week"] + lag)
     )
-    # Drop original sentiment, re-merge with shifted
     out = out.drop(columns=["sentiment_index"])
     out = out.merge(sent_shifted, on=["player_name", "game_week"], how="inner")
     out["lag"] = lag
     return out
 
-concurrent_pdf   = apply_lag(player_df, lag=0)
-sent_leads_pdf   = apply_lag(player_df, lag=1)   # sent(W) vs perf(W+1)
-perf_leads_pdf   = apply_lag(player_df, lag=-1)  # perf(W) vs sent(W+1)
+concurrent_pdf = apply_lag(player_df, lag=0)
+sent_leads_pdf = apply_lag(player_df, lag=1)
+perf_leads_pdf = apply_lag(player_df, lag=-1)
 
 LAG_FRAMES = {
     "concurrent (W vs W)":              concurrent_pdf,
@@ -178,11 +147,6 @@ LAG_FRAMES = {
     "perf leads (perf W → sent W+1)":    perf_leads_pdf,
 }
 
-# ─────────────────────────────────────────────
-# 7A. POPULATION-LEVEL CORRELATIONS
-#     Pool all player-weeks per position group
-#     → "Do QBs who tweet well play better that week?"
-# ─────────────────────────────────────────────
 pop_results = []
 
 for lag_label, lag_df in LAG_FRAMES.items():
@@ -210,20 +174,13 @@ pop_corr_df = (
     .sort_values("spearman_r", key=abs, ascending=False)
 )
 
-# ─────────────────────────────────────────────
-# 7B. PER-PLAYER CORRELATIONS
-#     Compute correlation within each player's own time series
-#     → "For which players is sentiment most predictive?"
-#     Requires MIN_PLAYER_WEEKS weeks to be meaningful
-# ─────────────────────────────────────────────
-MIN_PLAYER_WEEKS = 5   # lower bar than population since we want coverage
+MIN_PLAYER_WEEKS = 5
 
 per_player_results = []
 
 for lag_label, lag_df in LAG_FRAMES.items():
     for pos_group, cfg in POSITION_CONFIG.items():
         pos_df = lag_df[lag_df["player_position"].isin(cfg["positions"])]
-        # Use the single most holistic metric per position to keep output manageable
         anchor_metric = "fantasy_points_ppr"
         if anchor_metric not in pos_df.columns:
             continue
@@ -250,9 +207,6 @@ per_player_df = (
     .sort_values("spearman_r", key=abs, ascending=False)
 )
 
-# ─────────────────────────────────────────────
-# 8. DISPLAY RESULTS
-# ─────────────────────────────────────────────
 DISP = ["metric", "n", "pearson_r", "pearson_sig", "spearman_r", "spearman_sig", "distance_cor"]
 
 print("\n" + "=" * 70)
@@ -273,9 +227,6 @@ for align, grp in per_player_df.groupby("alignment"):
     print("-" * 70)
     print(grp[DISP_P].head(15).to_string(index=False))
 
-# ─────────────────────────────────────────────
-# 9. SAVE
-# ─────────────────────────────────────────────
 pop_corr_df.to_csv(
     PROJECT_ROOT
     / "correlation_results"
@@ -299,9 +250,6 @@ stats_df = pd.read_csv(
     Path('~/Downloads/nfl_sentiment_2025_cleaned.csv').expanduser()
 )
 
-# ─────────────────────────────────────────────
-# 1. LOAD & PREP TWITTER SENTIMENT
-# ─────────────────────────────────────────────
 twitter_df = pd.read_csv(
     PROJECT_ROOT / "sentiment_indices" / "twitter_local_index_sprint2.csv"
 )
@@ -310,21 +258,11 @@ twitter_df = twitter_df.rename(columns={"subject": "player_name_sentiment",
                                          "local_index": "sentiment_index"})
 twitter_df = twitter_df[["player_name_sentiment", "game_week", "sentiment_index"]]
 
-# ─────────────────────────────────────────────
-# 2. FUZZY NAME MATCHING
-#    Twitter names won't always match stats exactly
-#    e.g. "JaMarr Chase" vs "Ja'Marr Chase"
-#         "Michael Pittman Jr" vs "Michael Pittman Jr."
-# ─────────────────────────────────────────────
 stats_names = stats_df["player_name"].unique().tolist()
 twitter_names = twitter_df["player_name_sentiment"].unique().tolist()
 
 def build_name_map(twitter_names, stats_names, score_cutoff=85):
-    """
-    For each Twitter name, find the best fuzzy match in stats_names.
-    Returns a dict {twitter_name: matched_stats_name} for high-confidence matches.
-    Prints low-confidence matches for manual review.
-    """
+    """Fuzzy-match Twitter names to stats names."""
     mapping = {}
     low_confidence = []
     for name in twitter_names:
@@ -348,10 +286,6 @@ name_map = build_name_map(twitter_names, stats_names)
 twitter_df["player_name"] = twitter_df["player_name_sentiment"].map(name_map)
 twitter_df = twitter_df.dropna(subset=["player_name"])
 
-# ─────────────────────────────────────────────
-# 3. MERGE SENTIMENT → STATS AT PLAYER × WEEK
-#    No aggregation — this is the natural grain
-# ─────────────────────────────────────────────
 player_df = stats_df.merge(
     twitter_df[["player_name", "game_week", "sentiment_index"]],
     on=["player_name", "game_week"],
@@ -362,10 +296,6 @@ print(f"\nMerged dataset: {len(player_df)} player-week rows "
       f"| {player_df['player_name'].nunique()} players "
       f"| {player_df['game_week'].nunique()} weeks")
 
-# ─────────────────────────────────────────────
-# 4. POSITION GROUPS & THEIR RELEVANT METRICS
-#    Keeps correlations meaningful per role
-# ─────────────────────────────────────────────
 POSITION_CONFIG = {
     "QB": {
         "positions": ["QB"],
@@ -409,9 +339,6 @@ POSITION_CONFIG = {
     },
 }
 
-# ─────────────────────────────────────────────
-# 5. CORRELATION HELPERS
-# ─────────────────────────────────────────────
 def dcor(a, b):
     def cent_dist(v):
         d = np.abs(v[:, None] - v[None, :]).astype(float)
@@ -421,7 +348,6 @@ def dcor(a, b):
     return np.sqrt(abs((A * B).mean()) / denom) if denom > 0 else 0.0
 
 def correlate_series(xi, yi, min_n=15):
-    """Return dict of correlation stats, or None if insufficient data."""
     mask = ~(np.isnan(xi) | np.isnan(yi))
     xi, yi = xi[mask], yi[mask]
     if len(xi) < min_n:
@@ -438,26 +364,20 @@ def correlate_series(xi, yi, min_n=15):
         spearman_sig= "***" if p_s<0.001 else ("**" if p_s<0.01 else ("*" if p_s<0.05 else "")),
     )
 
-# ─────────────────────────────────────────────
-# 6. THREE-LAG MERGE
-# ─────────────────────────────────────────────
 def apply_lag(df, lag):
-    """Shift sentiment week by lag to test leading/lagging relationships."""
     out = df.copy()
-    # Create a shifted sentiment lookup
     sent_shifted = (
         twitter_df[["player_name", "game_week", "sentiment_index"]]
         .assign(game_week=lambda x: x["game_week"] + lag)
     )
-    # Drop original sentiment, re-merge with shifted
     out = out.drop(columns=["sentiment_index"])
     out = out.merge(sent_shifted, on=["player_name", "game_week"], how="inner")
     out["lag"] = lag
     return out
 
-concurrent_pdf   = apply_lag(player_df, lag=0)
-sent_leads_pdf   = apply_lag(player_df, lag=1)   # sent(W) vs perf(W+1)
-perf_leads_pdf   = apply_lag(player_df, lag=-1)  # perf(W) vs sent(W+1)
+concurrent_pdf = apply_lag(player_df, lag=0)
+sent_leads_pdf = apply_lag(player_df, lag=1)
+perf_leads_pdf = apply_lag(player_df, lag=-1)
 
 LAG_FRAMES = {
     "concurrent (W vs W)":              concurrent_pdf,
@@ -465,11 +385,6 @@ LAG_FRAMES = {
     "perf leads (perf W → sent W+1)":    perf_leads_pdf,
 }
 
-# ─────────────────────────────────────────────
-# 7A. POPULATION-LEVEL CORRELATIONS
-#     Pool all player-weeks per position group
-#     → "Do QBs who tweet well play better that week?"
-# ─────────────────────────────────────────────
 pop_results = []
 
 for lag_label, lag_df in LAG_FRAMES.items():
@@ -497,20 +412,13 @@ pop_corr_df = (
     .sort_values("spearman_r", key=abs, ascending=False)
 )
 
-# ─────────────────────────────────────────────
-# 7B. PER-PLAYER CORRELATIONS
-#     Compute correlation within each player's own time series
-#     → "For which players is sentiment most predictive?"
-#     Requires MIN_PLAYER_WEEKS weeks to be meaningful
-# ─────────────────────────────────────────────
-MIN_PLAYER_WEEKS = 5   # lower bar than population since we want coverage
+MIN_PLAYER_WEEKS = 5
 
 per_player_results = []
 
 for lag_label, lag_df in LAG_FRAMES.items():
     for pos_group, cfg in POSITION_CONFIG.items():
         pos_df = lag_df[lag_df["player_position"].isin(cfg["positions"])]
-        # Use the single most holistic metric per position to keep output manageable
         anchor_metric = "fantasy_points_ppr"
         if anchor_metric not in pos_df.columns:
             continue
@@ -537,9 +445,6 @@ per_player_df = (
     .sort_values("spearman_r", key=abs, ascending=False)
 )
 
-# ─────────────────────────────────────────────
-# 8. DISPLAY RESULTS
-# ─────────────────────────────────────────────
 DISP = ["metric", "n", "pearson_r", "pearson_sig", "spearman_r", "spearman_sig", "distance_cor"]
 
 print("\n" + "=" * 70)
@@ -560,9 +465,6 @@ for align, grp in per_player_df.groupby("alignment"):
     print("-" * 70)
     print(grp[DISP_P].head(15).to_string(index=False))
 
-# ─────────────────────────────────────────────
-# 9. SAVE
-# ─────────────────────────────────────────────
 pop_corr_df.to_csv(
     PROJECT_ROOT
     / "correlation_results"

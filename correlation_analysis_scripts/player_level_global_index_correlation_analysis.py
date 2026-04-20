@@ -3,16 +3,13 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from rapidfuzz import fuzz, process  # pip install rapidfuzz
+from rapidfuzz import fuzz, process
 from scipy import stats
 
 warnings.filterwarnings("ignore")
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# ─────────────────────────────────────────────
-# 1. LOAD & PREP GLOBAL SENTIMENT INDEX
-# ─────────────────────────────────────────────
 global_index_df = pd.read_csv(PROJECT_ROOT / "sentiment_indices" / "global_index.csv")
 global_index_df = global_index_df.rename(
     columns={
@@ -24,18 +21,9 @@ global_index_df = global_index_df.rename(
 global_index_df["game_week"] = global_index_df["week_label"].str.extract(r"W(\d+)").astype(int)
 global_index_df = global_index_df[["player_name_sentiment", "game_week", "sentiment_index"]]
 
-# ─────────────────────────────────────────────
-# 2. FUZZY NAME MATCHING
-#    Global index names won't always match stats exactly
-#    e.g. "JaMarr Chase" vs "Ja'Marr Chase"
-#         "Michael Pittman Jr" vs "Michael Pittman Jr."
-# ─────────────────────────────────────────────
+
 def build_name_map(source_names, stats_names, score_cutoff=85):
-    """
-    For each sentiment-source name, find the best fuzzy match in stats_names.
-    Returns a dict {source_name: matched_stats_name} for high-confidence matches.
-    Prints low-confidence matches for manual review.
-    """
+    """Fuzzy-match sentiment names to stats names when score >= cutoff."""
     mapping = {}
     low_confidence = []
     for name in source_names:
@@ -49,10 +37,7 @@ def build_name_map(source_names, stats_names, score_cutoff=85):
         print(f"{len(low_confidence)} low-confidence name matches found.")
     return mapping
 
-# ─────────────────────────────────────────────
-# 4. POSITION GROUPS & THEIR RELEVANT METRICS
-#    Keeps correlations meaningful per role
-# ─────────────────────────────────────────────
+
 POSITION_CONFIG = {
     "QB": {
         "positions": ["QB"],
@@ -111,9 +96,7 @@ POSITION_CONFIG = {
     },
 }
 
-# ─────────────────────────────────────────────
-# 5. CORRELATION HELPERS
-# ─────────────────────────────────────────────
+
 def dcor(a, b):
     def cent_dist(v):
         d = np.abs(v[:, None] - v[None, :]).astype(float)
@@ -125,7 +108,6 @@ def dcor(a, b):
 
 
 def correlate_series(xi, yi, min_n=15):
-    """Return dict of correlation stats, or None if insufficient data."""
     mask = ~(np.isnan(xi) | np.isnan(yi))
     xi, yi = xi[mask], yi[mask]
     if len(xi) < min_n:
@@ -146,7 +128,6 @@ def correlate_series(xi, yi, min_n=15):
 
 
 def apply_lag(df, lag, sentiment_df):
-    """Shift sentiment week by lag to test leading/lagging relationships."""
     out = df.copy()
     shifted_index = sentiment_df[["player_name", "game_week", "sentiment_index"]].assign(
         game_week=lambda x: x["game_week"] + lag
@@ -162,13 +143,11 @@ def run_analysis(stats_file_path, output_suffix):
     stats_names = stats_df["player_name"].unique().tolist()
     global_index_names = global_index_df["player_name_sentiment"].unique().tolist()
 
-    # Match sentiment-source player names to stats player names.
     sentiment_df = global_index_df.copy()
     name_map = build_name_map(global_index_names, stats_names)
     sentiment_df["player_name"] = sentiment_df["player_name_sentiment"].map(name_map)
     sentiment_df = sentiment_df.dropna(subset=["player_name"])
 
-    # Merge sentiment index into player-week stats.
     player_df = stats_df.merge(
         sentiment_df[["player_name", "game_week", "sentiment_index"]],
         on=["player_name", "game_week"],
@@ -185,7 +164,6 @@ def run_analysis(stats_file_path, output_suffix):
         "perf leads (perf W -> sent W+1)": perf_leads_pdf,
     }
 
-    # Population-level correlations.
     pop_results = []
     for lag_label, lag_df in lag_frames.items():
         for pos_group, cfg in POSITION_CONFIG.items():
@@ -211,7 +189,6 @@ def run_analysis(stats_file_path, output_suffix):
 
     pop_corr_df = pd.DataFrame(pop_results).sort_values("spearman_r", key=abs, ascending=False)
 
-    # Per-player correlations.
     min_player_weeks = 5
     per_player_results = []
     for lag_label, lag_df in lag_frames.items():
@@ -242,7 +219,6 @@ def run_analysis(stats_file_path, output_suffix):
 
     per_player_df = pd.DataFrame(per_player_results).sort_values("spearman_r", key=abs, ascending=False)
 
-    # Save results.
     pop_output_path = (
         PROJECT_ROOT
         / "correlation_results"
@@ -261,6 +237,5 @@ def run_analysis(stats_file_path, output_suffix):
     )
 
 
-# Run both variants: running means + mean stats.
 run_analysis("~/Downloads/nfl_running_means.csv", "running_means")
 run_analysis("~/Downloads/nfl_sentiment_2025_cleaned.csv", "mean_stats")

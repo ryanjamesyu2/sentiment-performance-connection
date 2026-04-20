@@ -9,10 +9,6 @@ warnings.filterwarnings('ignore')
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# ─────────────────────────────────────────────
-# 1. TEAM NAME → ABBREVIATION MAPPING
-# (same as before — reuse if already defined)
-# ─────────────────────────────────────────────
 TEAM_MAP = {
     "Arizona Cardinals": "ARI", "Atlanta Falcons": "ATL", "Baltimore Ravens": "BAL",
     "Buffalo Bills": "BUF", "Carolina Panthers": "CAR", "Chicago Bears": "CHI",
@@ -27,9 +23,6 @@ TEAM_MAP = {
     "Tennessee Titans": "TEN", "Washington Commanders": "WAS",
 }
 
-# ─────────────────────────────────────────────
-# 2. LOAD & PREP GOOGLE SENTIMENT
-# ─────────────────────────────────────────────
 google_df = pd.read_csv(
     PROJECT_ROOT / "sentiment_indices" / "google_local_index_sprint2.csv"
 )
@@ -41,7 +34,6 @@ google_df = google_df.dropna(subset=["team_abbreviation"])
 google_sentiment = google_df[["team_abbreviation", "game_week", "local_index"]].copy()
 google_sentiment.columns = ["team_abbreviation", "game_week", "sentiment_index"]
 
-# Coverage report — important since Google tracks fewer teams than Reddit
 coverage = (
     google_sentiment
     .groupby("team_abbreviation")["game_week"]
@@ -52,11 +44,6 @@ print("📡  Google Sentiment Coverage (teams × weeks):")
 print(coverage.to_string())
 print(f"\n   Total team-week observations: {len(google_sentiment)}")
 print(f"   Teams covered: {google_sentiment['team_abbreviation'].nunique()}\n")
-
-# ─────────────────────────────────────────────
-# 3. AGGREGATE STATS TO TEAM × WEEK
-# (skip this block if already computed in session)
-# ─────────────────────────────────────────────
 
 stats_df = pd.read_csv(
     Path('~/Downloads/nfl_sentiment_2025_cleaned.csv').expanduser()
@@ -97,9 +84,6 @@ team_stats["total_td"]        = team_stats["pass_td"] + team_stats["rush_td"]
 team_stats["turnover_sum"]    = team_stats["pass_int"]
 team_stats["defensive_stops"] = team_stats["sacks"] + team_stats["interceptions"]
 
-# ─────────────────────────────────────────────
-# 4. THREE-LAG MERGES
-# ─────────────────────────────────────────────
 def merge_with_lag(stats, sentiment, lag: int) -> pd.DataFrame:
     s = sentiment.copy()
     s["game_week"] = s["game_week"] + lag
@@ -109,15 +93,11 @@ google_concurrent    = merge_with_lag(team_stats, google_sentiment, lag=0)
 google_sent_leads    = merge_with_lag(team_stats, google_sentiment, lag=1)
 google_perf_leads    = merge_with_lag(team_stats, google_sentiment, lag=-1)
 
-# Sanity-check merge sizes
 for label, df in [("concurrent", google_concurrent),
                   ("sentiment leads (+1)", google_sent_leads),
                   ("perf leads (-1)", google_perf_leads)]:
     print(f"   {label}: {len(df)} team-week pairs | {df['team_abbreviation'].nunique()} teams")
 
-# ─────────────────────────────────────────────
-# 5. CORRELATION ENGINE (identical to Reddit)
-# ─────────────────────────────────────────────
 PERF_COLS = [
     "total_fantasy_pts", "total_yards", "total_td",
     "pass_yards", "pass_td", "pass_int",
@@ -166,9 +146,6 @@ def compute_correlations(df: pd.DataFrame, label: str, min_n: int = 10) -> pd.Da
         })
     return pd.DataFrame(results).sort_values("spearman_r", key=abs, ascending=False)
 
-# ─────────────────────────────────────────────
-# 6. RUN CORRELATIONS
-# ─────────────────────────────────────────────
 google_corr_concurrent  = compute_correlations(google_concurrent,  "concurrent (W vs W)")
 google_corr_sent_leads  = compute_correlations(google_sent_leads,  "sentiment leads (sent W → perf W+1)")
 google_corr_perf_leads  = compute_correlations(google_perf_leads,  "perf leads (perf W → sent W+1)")
@@ -232,9 +209,6 @@ team_stats["total_td"]        = team_stats["pass_td"] + team_stats["rush_td"]
 team_stats["turnover_sum"]    = team_stats["pass_int"]
 team_stats["defensive_stops"] = team_stats["sacks"] + team_stats["interceptions"]
 
-# ─────────────────────────────────────────────
-# 4. THREE-LAG MERGES
-# ─────────────────────────────────────────────
 def merge_with_lag(stats, sentiment, lag: int) -> pd.DataFrame:
     s = sentiment.copy()
     s["game_week"] = s["game_week"] + lag
@@ -244,15 +218,11 @@ google_concurrent    = merge_with_lag(team_stats, google_sentiment, lag=0)
 google_sent_leads    = merge_with_lag(team_stats, google_sentiment, lag=1)
 google_perf_leads    = merge_with_lag(team_stats, google_sentiment, lag=-1)
 
-# Sanity-check merge sizes
 for label, df in [("concurrent", google_concurrent),
                   ("sentiment leads (+1)", google_sent_leads),
                   ("perf leads (-1)", google_perf_leads)]:
     print(f"   {label}: {len(df)} team-week pairs | {df['team_abbreviation'].nunique()} teams")
 
-# ─────────────────────────────────────────────
-# 5. CORRELATION ENGINE (identical to Reddit)
-# ─────────────────────────────────────────────
 PERF_COLS = [
     "total_fantasy_pts", "total_yards", "total_td",
     "pass_yards", "pass_td", "pass_int",
@@ -301,9 +271,6 @@ def compute_correlations(df: pd.DataFrame, label: str, min_n: int = 10) -> pd.Da
         })
     return pd.DataFrame(results).sort_values("spearman_r", key=abs, ascending=False)
 
-# ─────────────────────────────────────────────
-# 6. RUN CORRELATIONS
-# ─────────────────────────────────────────────
 google_corr_concurrent  = compute_correlations(google_concurrent,  "concurrent (W vs W)")
 google_corr_sent_leads  = compute_correlations(google_sent_leads,  "sentiment leads (sent W → perf W+1)")
 google_corr_perf_leads  = compute_correlations(google_perf_leads,  "perf leads (perf W → sent W+1)")
