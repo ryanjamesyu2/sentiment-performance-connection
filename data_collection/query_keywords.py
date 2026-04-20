@@ -43,4 +43,4 @@ for player in players:
             keywords_df.loc[len(keywords_df)] = new_row
 
 # Save results to CSV
-keywords_df.to_csv("keywords.csv", index=False)
+keywords_df.to_csv("../keywords.csv", index=False)

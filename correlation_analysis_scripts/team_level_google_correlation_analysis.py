@@ -1,8 +1,13 @@
-import pandas as pd
+from pathlib import Path
+
 import numpy as np
+import pandas as pd
 from scipy import stats
 import warnings
+
 warnings.filterwarnings('ignore')
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # ─────────────────────────────────────────────
 # 1. TEAM NAME → ABBREVIATION MAPPING
@@ -25,7 +30,9 @@ TEAM_MAP = {
 # ─────────────────────────────────────────────
 # 2. LOAD & PREP GOOGLE SENTIMENT
 # ─────────────────────────────────────────────
-google_df = pd.read_csv("sentiment_indices/google_local_index_sprint2.csv")  # adjust path
+google_df = pd.read_csv(
+    PROJECT_ROOT / "sentiment_indices" / "google_local_index_sprint2.csv"
+)
 
 google_df["team_abbreviation"] = google_df["subject"].map(TEAM_MAP)
 google_df["game_week"]         = google_df["game_id"].str.extract(r"W(\d+)").astype(int)
@@ -51,7 +58,9 @@ print(f"   Teams covered: {google_sentiment['team_abbreviation'].nunique()}\n")
 # (skip this block if already computed in session)
 # ─────────────────────────────────────────────
 
-stats_df = pd.read_csv('~/Downloads/nfl_sentiment_2025_cleaned.csv')
+stats_df = pd.read_csv(
+    Path('~/Downloads/nfl_sentiment_2025_cleaned.csv').expanduser()
+)
 
 team_stats = (
     stats_df
@@ -176,12 +185,17 @@ for label, grp in google_all_corrs.groupby("alignment"):
     print(grp[["metric", "n", "pearson_r", "pearson_sig",
                "spearman_r", "spearman_sig", "distance_cor"]].head(10).to_string(index=False))
 
-google_all_corrs.to_csv("./correlation_results/google_team_sentiment_correlations_mean_stats.csv", index=False)
+google_all_corrs.to_csv(
+    PROJECT_ROOT
+    / "correlation_results"
+    / "google_team_sentiment_correlations_mean_stats.csv",
+    index=False,
+)
 print("\nSaved to google_team_sentiment_correlations_mean_stats.csv")
 
 
 
-stats_df = pd.read_csv('~/Downloads/nfl_running_means.csv')
+stats_df = pd.read_csv(Path('~/Downloads/nfl_running_means.csv').expanduser())
 
 team_stats = (
     stats_df
@@ -306,5 +320,10 @@ for label, grp in google_all_corrs.groupby("alignment"):
     print(grp[["metric", "n", "pearson_r", "pearson_sig",
                "spearman_r", "spearman_sig", "distance_cor"]].head(10).to_string(index=False))
 
-google_all_corrs.to_csv("./correlation_results/google_team_sentiment_correlations_mean_stats.csv", index=False)
-print("\nSaved to google_team_sentiment_correlations_mean_stats.csv")
+google_all_corrs.to_csv(
+    PROJECT_ROOT
+    / "correlation_results"
+    / "google_team_sentiment_correlations_running_means.csv",
+    index=False,
+)
+print("\nSaved to google_team_sentiment_correlations_running_means.csv")

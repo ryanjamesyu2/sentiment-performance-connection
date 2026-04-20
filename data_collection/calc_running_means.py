@@ -16,8 +16,8 @@ import numpy as np
 from sys import argv
 
 # Determine input and output file paths
-in_path = argv[1] if len(argv) > 1 else "data/nfl_sentiment_2025_cleaned.csv"
-out_path = argv[2] if len(argv) > 2 else "data/nfl_running_means.csv"
+in_path = argv[1] if len(argv) > 1 else "../data/nfl_sentiment_2025_cleaned.csv"
+out_path = argv[2] if len(argv) > 2 else "../data/nfl_running_means.csv"
 
 # Read and group data
 stats_df = pd.read_csv(in_path)

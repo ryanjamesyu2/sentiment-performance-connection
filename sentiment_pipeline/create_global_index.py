@@ -9,8 +9,12 @@ The output is a csv file containing the global index for each player and week
 """
 
 from sys import argv
-import pandas as pd
+from pathlib import Path
+
 import numpy as np
+import pandas as pd
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 # Check that the correct number of command line arguments have been provided
@@ -23,7 +27,7 @@ elif (len(argv) - 1) % 2 != 0:
         f"Provide an even number of arguments: {len(argv) - 1} given."
     )
 
-player_list = pd.read_csv('sentiment_indices/player_list.csv')
+player_list = pd.read_csv(PROJECT_ROOT / 'sentiment_indices' / 'player_list.csv')
 weeks = pd.Series(
     ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9',
         'W10', 'W11', 'W12', 'W13', 'W14', 'W15', 'W16', 'W17', 'W18']
@@ -75,4 +79,4 @@ while ind < len(argv) - 1:
 # Normalize global index by sum of weights
 df['global_index'] = df['global_index'] / wt_sum
 
-df.to_csv('sentiment_indices/global_index_test.csv', index=False)
+df.to_csv(PROJECT_ROOT / 'sentiment_indices' / 'global_index_test.csv', index=False)

@@ -1,9 +1,14 @@
-import pandas as pd
+from pathlib import Path
+
 import numpy as np
+import pandas as pd
 from scipy import stats
 from scipy.spatial.distance import cdist
 import warnings
+
 warnings.filterwarnings('ignore')
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # ─────────────────────────────────────────────
 # 1. TEAM NAME → ABBREVIATION MAPPING
@@ -25,7 +30,9 @@ TEAM_MAP = {
 # ─────────────────────────────────────────────
 # 2. LOAD & PREP SENTIMENT DATA
 # ─────────────────────────────────────────────
-sentiment_df = pd.read_csv("sentiment_indices/reddit_local_index.csv")  # adjust path
+sentiment_df = pd.read_csv(
+    PROJECT_ROOT / "sentiment_indices" / "reddit_local_index.csv"
+)
 
 sentiment_df["team_abbreviation"] = sentiment_df["subject"].map(TEAM_MAP)
 # Parse "W1" → integer 1
@@ -45,7 +52,9 @@ sentiment_clean.columns = ["team_abbreviation", "game_week", "sentiment_index"]
 #    Fantasy points summed across ALL players = best holistic offensive proxy
 # ─────────────────────────────────────────────
 
-stats_df = pd.read_csv('~/Downloads/nfl_sentiment_2025_cleaned.csv')
+stats_df = pd.read_csv(
+    Path('~/Downloads/nfl_sentiment_2025_cleaned.csv').expanduser()
+)
 
 team_stats = (
     stats_df
@@ -200,12 +209,17 @@ for label, grp in all_corrs.groupby("alignment"):
     print(grp[display_cols].head(10).to_string(index=False))
 
 # Save full results
-all_corrs.to_csv("reddit_team_sentiment_correlations_mean_stats.csv", index=False)
+all_corrs.to_csv(
+    PROJECT_ROOT
+    / "correlation_results"
+    / "reddit_team_sentiment_correlations_mean_stats.csv",
+    index=False,
+)
 print("\nFull results saved to reddit_team_sentiment_correlations_mean_stats.csv")
 
 
 
-stats_df = pd.read_csv('~/Downloads/nfl_running_means.csv')
+stats_df = pd.read_csv(Path('~/Downloads/nfl_running_means.csv').expanduser())
 
 team_stats = (
     stats_df
@@ -360,5 +374,10 @@ for label, grp in all_corrs.groupby("alignment"):
     print(grp[display_cols].head(10).to_string(index=False))
 
 # Save full results
-all_corrs.to_csv("reddit_team_sentiment_correlations_running_means.csv", index=False)
+all_corrs.to_csv(
+    PROJECT_ROOT
+    / "correlation_results"
+    / "reddit_team_sentiment_correlations_running_means.csv",
+    index=False,
+)
 print("\nFull results saved to reddit_team_sentiment_correlations_running_means.csv")

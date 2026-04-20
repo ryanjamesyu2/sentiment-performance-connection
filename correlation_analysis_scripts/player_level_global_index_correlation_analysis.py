@@ -1,4 +1,5 @@
 import warnings
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -7,10 +8,12 @@ from scipy import stats
 
 warnings.filterwarnings("ignore")
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
 # ─────────────────────────────────────────────
 # 1. LOAD & PREP GLOBAL SENTIMENT INDEX
 # ─────────────────────────────────────────────
-global_index_df = pd.read_csv("sentiment_indices/global_index.csv")
+global_index_df = pd.read_csv(PROJECT_ROOT / "sentiment_indices" / "global_index.csv")
 global_index_df = global_index_df.rename(
     columns={
         "player": "player_name_sentiment",
@@ -155,7 +158,7 @@ def apply_lag(df, lag, sentiment_df):
 
 
 def run_analysis(stats_file_path, output_suffix):
-    stats_df = pd.read_csv(stats_file_path)
+    stats_df = pd.read_csv(Path(stats_file_path).expanduser())
     stats_names = stats_df["player_name"].unique().tolist()
     global_index_names = global_index_df["player_name_sentiment"].unique().tolist()
 
@@ -240,8 +243,16 @@ def run_analysis(stats_file_path, output_suffix):
     per_player_df = pd.DataFrame(per_player_results).sort_values("spearman_r", key=abs, ascending=False)
 
     # Save results.
-    pop_output_path = f"./correlation_results/global_index_player_population_correlations_{output_suffix}.csv"
-    per_player_output_path = f"./correlation_results/global_index_player_individual_correlations_{output_suffix}.csv"
+    pop_output_path = (
+        PROJECT_ROOT
+        / "correlation_results"
+        / f"global_index_player_population_correlations_{output_suffix}.csv"
+    )
+    per_player_output_path = (
+        PROJECT_ROOT
+        / "correlation_results"
+        / f"global_index_player_individual_correlations_{output_suffix}.csv"
+    )
     pop_corr_df.to_csv(pop_output_path, index=False)
     per_player_df.to_csv(per_player_output_path, index=False)
     print(

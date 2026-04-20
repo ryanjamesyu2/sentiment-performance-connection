@@ -5,12 +5,16 @@ pipeline defined in sentiment_pipeline.py.
 """
 
 # Import necessary libraries
-from transformers import pipeline
-import pipeline_configs as pc
-import pandas as pd
+from pathlib import Path
+
 import numpy as np
+import pandas as pd
+import pipeline_configs as pc
 import spacy
 import torch
+from transformers import pipeline
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 def predict_sentiment(df, data_source, out_file_root="sentiment_scores.csv"):
@@ -48,7 +52,10 @@ def predict_sentiment(df, data_source, out_file_root="sentiment_scores.csv"):
 
     # Add sentiment scores to data frame and save to new .csv file
     df["sentiment_scores"] = final_scores
-    df.to_csv(data_source + "_" + out_file_root, index=False)
+    scores_path = PROJECT_ROOT / "intermediate_data" / (
+        data_source + "_" + out_file_root
+    )
+    df.to_csv(scores_path, index=False)
 
     return df
 

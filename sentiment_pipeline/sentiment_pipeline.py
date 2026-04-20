@@ -12,7 +12,10 @@ results are then saved to a new .csv file.
 """
 
 # Import necessary libraries
+from pathlib import Path
 from sys import argv
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 # from pipeline_utils import predict_twitter
 # from pipeline_utils import predict_reddit
 # from pipeline_utils import predict_google
@@ -153,5 +156,7 @@ local_index = aggregate_local_index(df, wts)
 local_index = scale_local_index(local_index)
 
 # Save to CSV
-out_path = "sentiment_indices/" + data_source + "_local_index_sprint3.csv"
+out_path = (
+    PROJECT_ROOT / "sentiment_indices" / f"{data_source}_local_index_sprint3.csv"
+)
 local_index.to_csv(out_path, index=False)

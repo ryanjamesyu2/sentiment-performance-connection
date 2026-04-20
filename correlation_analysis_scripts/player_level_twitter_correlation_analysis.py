@@ -1,16 +1,23 @@
-stats_df = pd.read_csv('~/Downloads/nfl_running_means.csv')
+from pathlib import Path
 
-import pandas as pd
 import numpy as np
-from scipy import stats
+import pandas as pd
 from rapidfuzz import process, fuzz   # pip install rapidfuzz
+from scipy import stats
 import warnings
+
 warnings.filterwarnings('ignore')
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+stats_df = pd.read_csv(Path('~/Downloads/nfl_running_means.csv').expanduser())
 
 # ─────────────────────────────────────────────
 # 1. LOAD & PREP TWITTER SENTIMENT
 # ─────────────────────────────────────────────
-twitter_df = pd.read_csv("sentiment_indices/twitter_local_index_sprint2.csv")
+twitter_df = pd.read_csv(
+    PROJECT_ROOT / "sentiment_indices" / "twitter_local_index_sprint2.csv"
+)
 twitter_df["game_week"] = twitter_df["game_id"].str.extract(r"W(\d+)").astype(int)
 twitter_df = twitter_df.rename(columns={"subject": "player_name_sentiment",
                                          "local_index": "sentiment_index"})
@@ -269,8 +276,18 @@ for align, grp in per_player_df.groupby("alignment"):
 # ─────────────────────────────────────────────
 # 9. SAVE
 # ─────────────────────────────────────────────
-pop_corr_df.to_csv("./correlation_results/twitter_player_population_correlations_running_means.csv", index=False)
-per_player_df.to_csv("./correlation_results/twitter_player_individual_correlations_running_means.csv", index=False)
+pop_corr_df.to_csv(
+    PROJECT_ROOT
+    / "correlation_results"
+    / "twitter_player_population_correlations_running_means.csv",
+    index=False,
+)
+per_player_df.to_csv(
+    PROJECT_ROOT
+    / "correlation_results"
+    / "twitter_player_individual_correlations_running_means.csv",
+    index=False,
+)
 print("\nSaved population + per-player correlation CSVs")
 
 
@@ -278,12 +295,16 @@ print("\nSaved population + per-player correlation CSVs")
 
 
 
-stats_df = pd.read_csv('~/Downloads/nfl_sentiment_2025_cleaned.csv')
+stats_df = pd.read_csv(
+    Path('~/Downloads/nfl_sentiment_2025_cleaned.csv').expanduser()
+)
 
 # ─────────────────────────────────────────────
 # 1. LOAD & PREP TWITTER SENTIMENT
 # ─────────────────────────────────────────────
-twitter_df = pd.read_csv("sentiment_indices/twitter_local_index_sprint2.csv")
+twitter_df = pd.read_csv(
+    PROJECT_ROOT / "sentiment_indices" / "twitter_local_index_sprint2.csv"
+)
 twitter_df["game_week"] = twitter_df["game_id"].str.extract(r"W(\d+)").astype(int)
 twitter_df = twitter_df.rename(columns={"subject": "player_name_sentiment",
                                          "local_index": "sentiment_index"})
@@ -542,6 +563,16 @@ for align, grp in per_player_df.groupby("alignment"):
 # ─────────────────────────────────────────────
 # 9. SAVE
 # ─────────────────────────────────────────────
-pop_corr_df.to_csv("./correlation_results/twitter_player_population_correlations_mean_stats.csv", index=False)
-per_player_df.to_csv("./correlation_results/twitter_player_individual_correlations_mean_stats.csv", index=False)
+pop_corr_df.to_csv(
+    PROJECT_ROOT
+    / "correlation_results"
+    / "twitter_player_population_correlations_mean_stats.csv",
+    index=False,
+)
+per_player_df.to_csv(
+    PROJECT_ROOT
+    / "correlation_results"
+    / "twitter_player_individual_correlations_mean_stats.csv",
+    index=False,
+)
 print("\nSaved population + per-player correlation CSVs")
