@@ -12,7 +12,7 @@ load_dotenv()
 API_KEY = os.getenv('DESEARCH_API_KEY')
 desearch = Desearch(API_KEY)
 
-OUTPUT_CSV = '../data/combined_season_results.csv'
+OUTPUT_CSV = '../data/twitter_combined_season_results.csv'
 CSV_COLUMNS = [
     "team", "player", "game_id", "game_date", "text", "created_at",
     "is_post_game", "likes", "retweets", "replies", "verified",
