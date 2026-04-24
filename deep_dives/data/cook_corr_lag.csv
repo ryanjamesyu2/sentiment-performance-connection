@@ -1,4 +1,4 @@
-,Statistic,Twitter Pearson,Twitter Distance Corr,Global Pearson,Global Distance Corr
-0,SL Rush Attempts,0.069,0.2988,0.0222,0.3542
-1,SL Rush Yards,-0.1498,0.3747,-0.2842,0.3998
-2,SL Rush TDs,-0.125,0.3281,-0.4667,0.5755
+,Statistic,Twitter Pearson,Global Pearson
+0,SL Rush Attempts,0.069,0.0222
+1,SL Rush Yards,-0.1498,-0.2842
+2,SL Rush TDs,-0.125,-0.4667
