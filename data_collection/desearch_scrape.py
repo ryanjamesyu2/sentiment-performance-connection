@@ -7,9 +7,11 @@ from datetime import datetime, timezone
 from desearch_py import Desearch
 from dotenv import load_dotenv
 
-# Initialize API
 load_dotenv()
-API_KEY = os.getenv('DESEARCH_API_KEY')
+API_KEY = os.getenv("DESEARCH_API_KEY")
+if not API_KEY:
+    raise SystemExit("DESEARCH_API_KEY missing; add to .env")
+
 desearch = Desearch(API_KEY)
 
 OUTPUT_CSV = '../data/twitter_combined_season_results.csv'
@@ -268,7 +270,7 @@ def categorize_sentiment(text):
 def build_dataset():
     all_records = []
     # Initialize file with header
-    pd.DataFrame(columns=CSV_COLUMNS).to_csv(OUTPUT_CSV, index=False)
+    pd.DataFrame(columns=CSV_COLUMNS).to_csv(OUTPUT_CSV, index=False, encoding="utf-8")
     print(f"Created {OUTPUT_CSV} (appending results per player)\n")
 
     for team_name, config in TEAMS_CONFIG.items():
@@ -335,7 +337,9 @@ def build_dataset():
                                 (2 * np.log2(batch_df['retweets'] + 1)) +
                                 (0.5 * np.log2(batch_df['replies'] + 1))
                             ).round(2)
-                            batch_df[CSV_COLUMNS].to_csv(OUTPUT_CSV, mode='a', header=False, index=False)
+                            batch_df[CSV_COLUMNS].to_csv(
+                                OUTPUT_CSV, mode="a", header=False, index=False, encoding="utf-8"
+                            )
                     else:
                         print('No results found')
 

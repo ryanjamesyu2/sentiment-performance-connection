@@ -10,7 +10,9 @@ warnings.filterwarnings("ignore")
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-global_index_df = pd.read_csv(PROJECT_ROOT / "sentiment_indices" / "global_index.csv")
+global_index_df = pd.read_csv(
+    PROJECT_ROOT / "sentiment_indices" / "global_index.csv", encoding="utf-8"
+)
 global_index_df = global_index_df.rename(
     columns={
         "player": "player_name_sentiment",
@@ -23,7 +25,6 @@ global_index_df = global_index_df[["player_name_sentiment", "game_week", "sentim
 
 
 def build_name_map(source_names, stats_names, score_cutoff=85):
-    """Fuzzy-match sentiment names to stats names when score >= cutoff."""
     mapping = {}
     low_confidence = []
     for name in source_names:
@@ -139,7 +140,7 @@ def apply_lag(df, lag, sentiment_df):
 
 
 def run_analysis(stats_file_path, output_suffix):
-    stats_df = pd.read_csv(Path(stats_file_path).expanduser())
+    stats_df = pd.read_csv(Path(stats_file_path).expanduser(), encoding="utf-8")
     stats_names = stats_df["player_name"].unique().tolist()
     global_index_names = global_index_df["player_name_sentiment"].unique().tolist()
 
@@ -229,8 +230,8 @@ def run_analysis(stats_file_path, output_suffix):
         / "correlation_results"
         / f"global_index_player_individual_correlations_{output_suffix}.csv"
     )
-    pop_corr_df.to_csv(pop_output_path, index=False)
-    per_player_df.to_csv(per_player_output_path, index=False)
+    pop_corr_df.to_csv(pop_output_path, index=False, encoding="utf-8")
+    per_player_df.to_csv(per_player_output_path, index=False, encoding="utf-8")
     print(
         f"Saved {output_suffix}: "
         f"{len(pop_corr_df)} population rows, {len(per_player_df)} per-player rows."

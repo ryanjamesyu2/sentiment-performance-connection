@@ -1,11 +1,10 @@
-# Use a pipeline as a high-level helper
-from transformers import pipeline
-import pandas as pd
+from pathlib import Path
 
-# Define model to use
+import pandas as pd
+from transformers import pipeline
+
 pipe = pipeline("fill-mask", model="microsoft/SportsBERT")
 
-# Define players we are interested in
 players = [
     "Jalen Hurts",
     "Saquon Barkley",
@@ -16,7 +15,6 @@ players = [
     "Zack Baun"
 ]
 
-# Define query templates
 queries = [
     " is a [MASK]",
     " is an [MASK]",
@@ -29,11 +27,9 @@ queries = [
     " has been [MASK] this season"
 ]
 
-# Create empty DataFrame to store results
 cols = ["Player", "Query", "Keyword"]
 keywords_df = pd.DataFrame(columns=cols)
 
-# Generate keywords for each player and query, store in df
 for player in players:
     for query in queries:
         full_query = player + query
@@ -42,5 +38,5 @@ for player in players:
             new_row = [player, full_query, r['token_str'].strip()]
             keywords_df.loc[len(keywords_df)] = new_row
 
-# Save results to CSV
-keywords_df.to_csv("../keywords.csv", index=False)
+out = Path(__file__).resolve().parent.parent / "keywords.csv"
+keywords_df.to_csv(out, index=False, encoding="utf-8")

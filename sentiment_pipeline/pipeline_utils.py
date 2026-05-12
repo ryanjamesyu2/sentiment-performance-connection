@@ -1,10 +1,5 @@
-"""
-A set of functions to predict the sentiment of text data from Twitter, Reddit,
-and Google. These functions will be imported and used in the sentiment analysis
-pipeline defined in sentiment_pipeline.py.
-"""
+"""Sentiment scoring helpers for sentiment_pipeline.py."""
 
-# Import necessary libraries
 from pathlib import Path
 
 import numpy as np
@@ -16,192 +11,76 @@ from transformers import pipeline
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
+_SPACY_NLP = None
+
+
+def _spacy_nlp():
+    global _SPACY_NLP
+    if _SPACY_NLP is None:
+        _SPACY_NLP = spacy.load("en_core_web_sm")
+    return _SPACY_NLP
+
 
 def predict_sentiment(df, data_source, out_file_root="sentiment_scores.csv"):
-    """
-    A function to predict the sentiment of Twitter text data using a
-    pre-trained HuggingFace model
-
-    Parameters:
-    -----------
-    df: pandas DataFrame
-        The preprocessed Twitter data
-    data_source: str
-        A string indicating the data source. Either "twitter", "reddit",
-        or "google"
-    out_file_root: str
-        The root of the .csv file to save the results to (default is
-        "sentiment_scores.csv"). The data source will be appended to
-        this root (i.e. "twitter_sentiment_scores.csv")
-
-    Returns:
-    --------
-    df: pandas DataFrame
-        The input data frame with an additional column containing the predicted
-        sentiment scores for each text entry
-    """
-
     model_path, model_function = retrieve_model_info(data_source)
-
-    # Run with pre-built HuggingFace pipeline, while batching inputs
     classifier = load_classifier(model_path, model_function)
     sentiment_scores = run_classifier(classifier, df)
-
-    # Calculate EV sentiment scores using class probabilities
     final_scores = calc_sentiment_scores(sentiment_scores)
-
-    # Add sentiment scores to data frame and save to new .csv file
     df["sentiment_scores"] = final_scores
     scores_path = PROJECT_ROOT / "intermediate_data" / (
         data_source + "_" + out_file_root
     )
-    df.to_csv(scores_path, index=False)
-
+    df.to_csv(scores_path, index=False, encoding="utf-8")
     return df
 
 
 def aggregate_local_index(in_df, weights):
-    """
-    A function to calculate a weighted average of sentiment scores for a given
-    data source. They are aggregated to the player/team and week combination
-    level.
-
-    Parameters:
-    -----------
-    in_df: pandas DataFrame
-        A DataFrame containing sentiment scores for a given player/team and
-        week combination
-    weights: list of floats
-        A list of weights corresponding to the sentiment scores, generated
-        from a metadata column such as engagement score
-
-    Returns:
-    --------
-    out_df: DataFrame
-        A DataFrame containing the weighted average sentiment score for the
-        given player/team and week combination
-    """
-
-    # Define variables we need
     out_df = pd.DataFrame(columns=["subject", "game_id", "local_index"])
     unique_levels = in_df[["subject", "game_id"]].drop_duplicates()
-
-    # Iterate through each possible player/team
     for _, row in unique_levels.iterrows():
-        # Get indices for the given player/team and week combination
         subject = row["subject"]
         game_id = row["game_id"]
         inds = (in_df["subject"] == subject) & (in_df["game_id"] == game_id)
-
-        # Get the correct rows in df and weights
         subset_df = in_df[inds]
         scores = subset_df["sentiment_scores"].tolist()
         w = weights[inds].tolist()
-
-        # Calculate weighted average and add to output df
         local_index = np.average(scores, weights=w)
         out_df.loc[len(out_df), :] = [subject, game_id, local_index]
-
     return out_df
 
 
 def scale_local_index(df):
-    """
-    A function to scale the local index values to be between 0 and 100
-    via min-max scaling on a week-by-week basis.
-
-    Parameters:
-    -----------
-    df: DataFrame
-        A DataFrame containing the local index values to be scaled
-
-    Returns:
-    --------
-    out_df: DataFrame
-        A DataFrame containing scaled local index values, between 0 and 100
-    """
-    # Create output df
     out_df = pd.DataFrame(columns=df.columns)
-
-    # Iterate through each week
-    for week in df['game_id'].unique():
-        # Get index entries for that week
-        week_inds = (df['game_id'] == week)
-        week_df = df[week_inds]
-        local_index = week_df['local_index']
-
-        # Determine minimum and maximum observed sentiment in given week
+    for week in df["game_id"].unique():
+        week_inds = df["game_id"] == week
+        week_df = df[week_inds].copy()
+        local_index = week_df["local_index"]
         max_val = max(local_index)
         min_val = min(local_index)
-
-        # Scale local index for that week
-        num = (week_df['local_index'] - min_val)
-        den = (max_val - min_val)
-        week_df['local_index'] = num / den * 100
-
-        # Concatenate weekly data frame to previous weeks
+        num = week_df["local_index"] - min_val
+        den = max_val - min_val
+        week_df["local_index"] = num / den * 100
         out_df = pd.concat([out_df, week_df], ignore_index=True)
-
     return out_df
 
 
 def load_classifier(model_path, model_function):
-    """
-    A function to load a pretrained HuggingFace model
-
-    Parameters
-    ----------
-    model_path: str
-        A string containing the model path, as described on the HuggingFace
-        model card
-    model_function: str
-        A string containing the model function, as described on the HuggingFace
-        model card
-
-    Returns
-    -------
-    classifier
-        A HuggingFace pipeline object containing the loaded model
-    """
     return pipeline(
         model_function,
         model=model_path,
         device=0 if torch.cuda.is_available() else -1,
-        batch_size=64
+        batch_size=64,
     )
 
 
 def run_classifier(classifier, df):
-    """
-    A function to load a pretrained HuggingFace model pipeline and predict
-    the sentiment of a given list of texts
-
-    Parameters
-    ----------
-    model_path: str
-        A string containing the model path, as described on the HuggingFace
-        model card
-    model_function: str
-        A string containing the model function, as described on the HuggingFace
-        model card
-    df: DataFrame
-        A data frame containing the texts to be classified in a column named
-        'text'
-
-    Returns
-    -------
-    list
-        list of json objects containing class labels and probabilities
-    """
-    sentiment_scores = classifier(
+    return classifier(
         df["text"].tolist(),
         padding=True,
         truncation=True,
         max_length=512,
-        top_k=None
+        top_k=None,
     )
-
-    return sentiment_scores
 
 
 def calc_sentiment_scores(model_output):
@@ -421,113 +300,32 @@ def map_reddit_thread_to_week(thread_title):
 
 
 def extract_sentences(text):
-    """
-    A function to split a given text into sentences. This is necessary for the
-    Google data to avoid maximum token limits.
-
-    Parameters:
-    -----------
-    texts: str
-        A string containing the text to be split into sentences
-
-    Returns:
-    --------
-    list of str
-        A list of strings, where each string is a sentence from the input text
-    """
-    nlp = spacy.load("en_core_web_sm")
-    doc = nlp(text)
-    sentences = [sent.text.strip() for sent in doc.sents]
-    return sentences
+    doc = _spacy_nlp()(text)
+    return [sent.text.strip() for sent in doc.sents]
 
 
 def calc_google_weights(df, k=5.52):
-    """
-    A function to calculate the weights of Google article sentences following
-    a exponential decaying pattern, where earlier sentences are weighted more
-    heavily. The first 25% of the sentences carry about 75% of the total
-    weight by default. The initial code was generated by ChatGPT.
-
-    Parameters
-    ----------
-    df: DataFrame
-        A data frame containing the Google article data
-    k: float
-        The decay rate for the exponential function
-
-    Returns
-    -------
-    NumPy array
-        An array containing the weights for each sentence
-    """
-    # position of each sentence within article
+    # Earlier sentences get more weight (~75% mass in first quarter of sentences for default k).
     sent_idx = df.groupby("title").cumcount()
-
-    # number of sentences per article
     n_sent = df.groupby("title")["title"].transform("size")
-
-    # normalized position in [0,1]
     x = sent_idx / (n_sent - 1)
-
-    # handle single-sentence articles
     x = x.fillna(0)
-
-    # exponential decay
     raw = np.exp(-k * x)
-
-    # normalize within each article
     weights = raw / raw.groupby(df["title"]).transform("sum")
-
-    # return as a NumPy array
     return weights
 
 
 def retrieve_model_info(data_source):
-    """
-    A function to retrieve the model path and function for a given data source
-
-    Parameters
-    ----------
-    data_source: str
-        A string indicating the data source. Either "twitter", "reddit",
-        or "google"
-
-    Returns
-    -------
-    model_path: str
-        A string containing the model path, as described on the HuggingFace
-        model card
-    model_function: str
-        A string containing the model function, as described on the HuggingFace
-        model card
-    """
     if data_source == "twitter":
         return pc.TWITTER_MODEL, pc.TWITTER_FUNCTION
-    elif data_source == "reddit":
+    if data_source == "reddit":
         return pc.REDDIT_MODEL, pc.REDDIT_FUNCTION
-    elif data_source == "google":
+    if data_source == "google":
         return pc.GOOGLE_MODEL, pc.GOOGLE_FUNCTION
-
-    return "", ""
+    raise ValueError(f"unknown data_source {data_source!r}; filename must start with twitter_, reddit_, or google_")
 
 
 def get_game_start_times(team_week):
-    """
-    A function to get the start time of each game, based on the team and game
-    week
-
-    Parameters
-    ----------
-    team_week: tuple
-        A tuple containing the team name and game week information
-
-    Returns
-    -------
-    DataFrame
-        A data frame containing an additional column with the start time of
-        each game stored in a datetime column
-    """
-
     time_map = {
         # Philadelphia Eagles
         ('Eagles', 'W1'): '2025-09-04 20:20:00',

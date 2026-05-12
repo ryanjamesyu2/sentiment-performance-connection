@@ -1,40 +1,5 @@
-
 #!/usr/bin/env python3
-"""
-NFL Reddit team-reference classifier
-
-What it does
-------------
-Takes a CSV like your combined.csv with at least:
-- body
-- home_team
-- away_team
-
-Returns a new CSV with:
-- pct_home
-- pct_away
-- pct_unsure
-- predicted_tag
-- matched_home_terms
-- matched_away_terms
-- classifier_reason
-
-Why this is stronger than simple exact team matching
-----------------------------------------------------
-It scores comments using:
-1) team names and city names
-2) nicknames and abbreviations
-3) player names / player aliases
-4) subreddit hints
-5) light fan-language heuristics ("we/us/our") when paired with team clues
-
-Notes
------
-- This is a rule-based classifier, not a fine-tuned ML model.
-- It is intentionally transparent and easy to edit.
-- The player dictionary below is a strong starter set, but not exhaustive.
-  You can extend TEAM_PLAYER_ALIASES over time as needed.
-"""
+"""Rule-based home vs away team labels for Reddit game-thread comments."""
 
 import argparse
 import math
@@ -356,7 +321,7 @@ def main():
     parser.add_argument("--output", required=True, help="Path to output CSV")
     args = parser.parse_args()
 
-    df = pd.read_csv(args.input)
+    df = pd.read_csv(args.input, encoding="utf-8")
 
     required = {"body", "home_team", "away_team"}
     missing = required - set(df.columns)
@@ -365,7 +330,7 @@ def main():
 
     preds = df.apply(classify_row, axis=1)
     out = pd.concat([df, preds], axis=1)
-    out.to_csv(args.output, index=False)
+    out.to_csv(args.output, index=False, encoding="utf-8")
 
     print(f"Done. Wrote {len(out):,} rows to {args.output}")
 
